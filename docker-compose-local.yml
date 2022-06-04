@@ -1,0 +1,24 @@
+version: '3'
+
+
+services:
+  backend:
+    container_name: 'codefather.dev-backend'
+
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+
+    ports:
+      - 8000:8000
+
+    restart: always
+    command: python3 -m uvicorn settings.asgi:application --reload --host=0.0.0.0 --port=8000 --loop=uvloop
+
+    volumes:
+      - .:/app
+
+    environment:
+      ENVIRONMENT: 'Local'
+
+    working_dir: /app/

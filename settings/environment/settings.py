@@ -49,6 +49,7 @@ def load_environment():
             os.environ.setdefault(
                 'DJANGO_SETTINGS_MODULE', str(EnvironmentSettingsModule.PRODUCTION)
             )
+    system_message(f"--- Using {environment_value} Environment ---")
 
 
 load_environment()
