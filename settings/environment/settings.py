@@ -29,7 +29,7 @@ def get_settings_module():
     return importlib.import_module(os.environ.get("DJANGO_SETTINGS_MODULE"))
 
 
-environment_value = str(os.environ.get("ENVIRONMENT", 'Prod'))
+environment_value = str(os.environ.get("ENVIRONMENT", 'Local'))
 try:
     environment: Enum = Environment(environment_value)
 except ValueError:
