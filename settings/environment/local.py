@@ -35,7 +35,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 PRE_ADMIN_APPS = []
-ROOT_APPS = []
+ROOT_APPS = [
+    'apps.core'
+]
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',

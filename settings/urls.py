@@ -15,19 +15,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 
 from settings.environment.settings import get_settings_module
 from settings.utils import schema_view
 
+from apps.core.views import main
+
 settings = get_settings_module()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', main, name='main_page'),
 
     # API URLS
-    # path('api/v1/', include(('apps.core.api_urls', 'core'), namespace='api-urls')),
+    path('api/v1/', include(('apps.core.urls', 'core'), namespace='core-urls')),
 
     # SWAGGER URLS
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
