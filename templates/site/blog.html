@@ -23,123 +23,37 @@
     <div class="section blog">
         <div class="content">
             <div class="title">
-                <div class="title_inner">Latest Posts</div>
+                <div class="title_inner">Posts</div>
             </div>
-            <div class="box-items post-items">
+            <table>
+                <tbody>
+                {% for post in latest_posts %}
+                <tr>
 
-                <div class="box-item post-item">
-                    <div class="image">
-                        <a href="">
-
-                            <img src="{% static 'site/assets/img/blog/blog_1.jpg' %}" alt="Welcome to Jekyll!"/>
-
-                            <span class="info">
-							<span class="centrize full-width">
-								<span class="vertical-center">
-									<span class="ion ion-ios-book-outline"></span>
-								</span>
-							</span>
-						</span>
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <div class="date">08 August 2020</div>
-                        <div class="categories">#Video #Music</div>
-                        <a href="" class="name">Welcome to Jekyll!</a>
-                    </div>
-                </div>
-
-                <div class="box-item post-item">
-                    <div class="image">
-                        <a href="">
-
-                            <img src="{% static 'site/assets/img/blog/blog_5.jpg' %}" alt="By spite about do of do allow blush"/>
-
-                            <span class="info">
-							<span class="centrize full-width">
-								<span class="vertical-center">
-									<span class="ion ion-ios-book-outline"></span>
-								</span>
-							</span>
-						</span>
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <div class="date">05 August 2020</div>
-                        <div class="categories">#Music</div>
-                        <a href="" class="name">By spite about do of do allow blush</a>
-                    </div>
-                </div>
-
-                <div class="box-item post-item">
-                    <div class="image">
-                        <a href="">
-
-                            <img src="{% static 'site/assets/img/blog/blog_4.jpg' %}" alt="Two Before Arrow Not Relied"/>
-
-                            <span class="info">
-							<span class="centrize full-width">
-								<span class="vertical-center">
-									<span class="ion ion-ios-book-outline"></span>
-								</span>
-							</span>
-						</span>
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <div class="date">20 July 2020</div>
-                        <div class="categories">#Design</div>
-                        <a href="" class="name">Two Before Arrow Not Relied</a>
-                    </div>
-                </div>
-
-                <div class="box-item post-item">
-                    <div class="image">
-                        <a href="">
-
-                            <img src="{% static 'site/assets/img/blog/blog_4.jpg' %}" alt="Design in Mobile Application"/>
-
-                            <span class="info">
-							<span class="centrize full-width">
-								<span class="vertical-center">
-									<span class="ion ion-ios-book-outline"></span>
-								</span>
-							</span>
-						</span>
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <div class="date">05 July 2020</div>
-                        <div class="categories">#Mobile</div>
-                        <a href="" class="name">Design in Mobile Application</a>
-                    </div>
-                </div>
-
-                <div class="box-item post-item">
-                    <div class="image">
-                        <a href="">
-
-                            <img src="{% static 'site/assets/img/blog/blog_4.jpg' %}" alt="By spite about what to do"/>
-
-                            <span class="info">
-							<span class="centrize full-width">
-								<span class="vertical-center">
-									<span class="ion ion-ios-book-outline"></span>
-								</span>
-							</span>
-						</span>
-                        </a>
-                    </div>
-                    <div class="desc">
-                        <div class="date">15 June 2020</div>
-                        <div class="categories">#Design</div>
-                        <a href="" class="name">By spite about what to do</a>
-                    </div>
-                </div>
-
-            </div>
+                    <td>
+                        <div class="post-text-bottom">
+                            <div class="desc">
+                                <div class="date">{{post.clear_created_date}}</div>
+                                <a href="{% url 'core-urls:post_url' post.slug %}" class="lnk"><h3>{{post.title}}</h3>
+                                </a>
+                                <div class="byline">
+                                    by <a href="{{post.contact}}">{{post.author}}</a>
+                                </div>
+                                <div class="tags-links">
+                                    <span>Posted in:</span>
+                                    {% for tag in post.tags.all %}
+                                    <a href="" rel="tag">#{{tag}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
 
 
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
             <div class="clear"></div>
         </div>
     </div>
