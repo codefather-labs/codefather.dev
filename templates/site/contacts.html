@@ -1,0 +1,91 @@
+{% extends 'site/layouts/base.html' %}
+
+{% block content %}
+<div class="wrapper">
+
+
+    <!-- Started -->
+    <div class="section started">
+        <div class="centrize full-width">
+            <div class="vertical-center">
+                <div class="started-content">
+                    <div class="h-title glitch-effect" data-text="Contacts">Contacts</div>
+                    <div class="h-subtitle typing-bread">
+                        <p><a href="http://localhost:8000">Home</a> / <a
+                                href="http://localhost:8000/contacts/">Contacts</a></p>
+                    </div>
+                    <span class="typed-bread"></span>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="mouse_btn"><span class="ion ion-mouse"></span></a>
+    </div>
+
+
+    <!-- Conacts Info -->
+
+    <div class="section contacts">
+        <div class="content">
+
+            <div class="title">
+                <div class="title_inner">Get in Touch</div>
+            </div>
+
+
+            <div class="service-items">
+
+                <div class="service-item">
+                    <div class="icon"><span class="ion ion-social-github" title="GitHub"></span></div>
+                    <div class="name"><a href="https://github.com/codefather-labs" target="_blank">Github</a></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="icon"><span class="ion ion-social-instagram"></span></div>
+                    <div class="name"><a href="https://instagram.com/codefather.dev" target="_blank">Instagram</a></div>
+                </div>
+
+                <div class="service-item">
+                    <div class="icon"><span class="ion ion-social-linkedin"></span></div>
+                    <div class="name"><a href="https://www.linkedin.com/in/codefather-ru/" target="_blank">Linkedin</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Contact Form -->
+
+    <!-- Contacts Info -->
+    <div class="section contacts">
+        <div class="content">
+
+            <div class="title">
+                <div class="title_inner">Contact Form</div>
+            </div>
+
+
+            <div class="contact_form">
+                <form id="cform" action="https://formsubmit.io/send/beshleyweb@gmail.com" method="POST">
+                    <input name="_formsubmit_id" type="text" style="display:none">
+
+                    <div class="group-val">
+                        <input type="text" name="name" placeholder="Full Name" id="name"/>
+                    </div>
+                    <div class="group-val">
+                        <input type="text" name="email" placeholder="Email Address" id="email"/>
+                    </div>
+                    <div class="group-val ct-gr">
+                        <textarea name="message" placeholder="Your Message" id="message"></textarea>
+                    </div>
+                    <a href="#" class="btn fill" onclick="$('#cform').submit(); return false;" data-text="Send Message">
+                        Send Message
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

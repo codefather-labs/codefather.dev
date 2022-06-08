@@ -1,8 +1,12 @@
 Django==4.0.5
+django_ckeditor==6.4.2
+django-richtextfield==1.6.1
 django-cors-headers==3.12.0
 django-extensions==3.1.5
 django-json-widget==1.1.1
+django-mdeditor==0.1.20
 djangorestframework==3.13.1
 drf-yasg==1.20.0
+mistletoe==0.8.2
 uvicorn==0.17.6
 uvloop==0.16.0

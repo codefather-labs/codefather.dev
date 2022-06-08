@@ -1,0 +1,32 @@
+{% load static %}
+
+<!-- Plugins -->
+<script src="{% static 'site/assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'site/assets/js/jquery.validate.js' %}"></script>
+<script src="{% static 'site/assets/js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'site/assets/js/imagesloaded.pkgd.js' %}"></script>
+<script src="{% static 'site/assets/js/isotope.pkgd.js' %}"></script>
+<script src="{% static 'site/assets/js/owl.carousel.js' %}"></script>
+<script src="{% static 'site/assets/js/typed.js' %}"></script>
+<script src="{% static 'site/assets/js/rrssb.js' %}"></script>
+<script src="{% static 'site/assets/js/simple-jekyll-search.js' %}"></script>
+
+<!-- Main -->
+<script src="{% static 'site/assets/js/glitche-scripts.js' %}"></script>
+
+<!--Switch theme side script-->
+<script>
+    let button = document.getElementById('theme_button');
+    let current_theme = getCookie('theme');
+
+    if (!current_theme || current_theme == 'white') {
+        button.setAttribute('data-text', 'Dark side');
+        button.innerText = 'Dark side';
+        button.setAttribute('class', "glitch-effect");
+
+    } else if (current_theme == 'black') {
+        button.setAttribute('data-text', 'Bright side');
+        button.innerText = 'Bright side';
+        button.setAttribute('class', "glitch-effect");
+    }
+</script>

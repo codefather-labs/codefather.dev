@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'drf_yasg',
+    'mdeditor',
+    'ckeditor',
+    'djrichtextfield'
 ]
 
 INSTALLED_APPS = [
@@ -127,6 +130,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+languages = ['en', 'pl', 'ua', 'ja', 'de', 'fr', 'it', 'ja', 'cn', 'ru']
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -162,12 +167,58 @@ REST_FRAMEWORK = {
     # ]
 }
 
+# MDEditor Settings
+# ------------------------------------------------------------------------------
+MDEDITOR_CONFIGS = {
+    'default': {
+        'width': '90% ',  # Custom edit box width
+        'height': 500,  # Custom edit box height
+        'toolbar': ["undo", "redo", "|",
+                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                    "h1", "h2", "h3", "h5", "h6", "|",
+                    "list-ul", "list-ol", "hr", "|",
+                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
+                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
+                    "help", "info",
+                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar
+        'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # image upload format type
+        'image_folder': 'editor',  # image save the folder name
+        'theme': 'default',  # edit box theme, dark / default
+        'preview_theme': 'default',  # Preview area theme, dark / default
+        'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
+        'toolbar_autofixed': True,  # Whether the toolbar capitals
+        'search_replace': True,  # Whether to open the search for replacement
+        'emoji': True,  # whether to open the expression function
+        'tex': True,  # whether to open the tex chart function
+        'flow_chart': True,  # whether to open the flow chart function
+        'sequence': True,  # Whether to open the sequence diagram function
+        'watch': True,  # Live preview
+        'lineWrapping': False,  # lineWrapping
+        'lineNumbers': False,  # lineNumbers
+        'language': 'en'  # zh / en / es
+    }
+}
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': True,
+        'plugins': 'link image',
+        'toolbar': 'bold italic | link image | removeformat',
+        'width': 1100,
+        'height': 600
+    }
+}
+
 # CORS Settings
 # ------------------------------------------------------------------------------
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost'
 ]
 CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = True
 
 CORS_ALLOW_ALL_ORIGINS = bool(int(os.environ.get("CORS_ALLOW_ALL_ORIGINS", '1')))

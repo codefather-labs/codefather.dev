@@ -1,35 +1,98 @@
-from django.shortcuts import redirect
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.decorators import api_view
+from typing import Union
+from uuid import UUID
+
+from django.http import Http404
+from django.shortcuts import render
 from rest_framework.request import Request
-from rest_framework.response import Response
 
-from apps.core.utils import generate_api_response
-
-
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-
-    def enforce_csrf(self, request):
-        return  # To not perform the csrf check previously happening
-
-
-@swagger_auto_schema(
-    method='get',
-    responses={
-        200: generate_api_response(success=True)
-    },
-    tags=['test']
-)
-@api_view(['GET'])
-def test(request: Request):
-    return Response(data={
-        "error": False,
-        "status": "Success",
-        "details": None
-    })
+from apps.core.models import Post, Tag
+from settings.logger import system_message
 
 
 def main(request: Request):
-    return redirect('schema-swagger-ui')
+    return render(request, 'site/base.html', {
+        "context": {
+            "page": "main"
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })
+
+
+def resume(request: Request):
+    return render(request, 'site/resume.html', {
+        "context": {
+            "page": "resume"
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })
+
+
+def portfolio(request: Request):
+    return render(request, 'site/portfolio.html', {
+        "context": {
+            "page": "portfolio"
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })
+
+
+def blog(request: Request):
+    return render(request, 'site/blog.html', {
+        "context": {
+            "page": "blog"
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })
+
+
+def contacts(request: Request):
+    return render(request, 'site/contacts.html', {
+        "context": {
+            "page": "contacts"
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })
+
+
+def tag(request: Request, reference: str):
+    ref = {}
+    try:
+        ref.update({"uuid": UUID(reference)})
+    except (AttributeError, ValueError):
+        ref.update({"name": reference})
+
+    try:
+        tag = Tag.objects.get(**ref)
+    except Post.DoesNotExist:
+        return Http404("Post was not found")
+
+    return render(request, 'site/tag.html', {
+        "context": {
+            "page": "blog"
+        },
+        "tag": {
+            "title": tag.title,
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })
+
+
+def post(request: Request, reference: Union[str, str]):
+    ref = {}
+    try:
+        ref.update({"uuid": UUID(reference)})
+    except (AttributeError, ValueError):
+        ref.update({"slug": reference})
+
+    try:
+        post = Post.objects.get(**ref)
+    except Post.DoesNotExist:
+        return Http404("Post was not found")
+
+    return render(request, 'site/post.html', {
+        "context": {
+            "page": "blog"
+        },
+        "post": post,
+        "latest_posts": Post.objects.order_by('-created_at')[:5]
+    })

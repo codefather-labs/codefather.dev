@@ -1,0 +1,80 @@
+{% extends 'site/layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Started -->
+    <div class="section started">
+        <div class="centrize full-width">
+            <div class="vertical-center">
+                <div class="started-content">
+                    <div class="h-title glitch-effect" data-text="Archive: Design">Archive: {{category.title}}</div>
+                    <div class="h-subtitle typing-bread">
+                        <p><a href="http://localhost:8000">Home</a> / <a
+                                href="http://localhost:8000/blog/categories/{{category.title}}/">{{category.title}}</a>
+                        </p>
+                    </div>
+                    <span class="typed-bread"></span>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="mouse_btn"><span class="ion ion-mouse"></span></a>
+    </div>
+
+    <!-- Blog -->
+    <div class="section blog">
+        <div class="content">
+            <div class="box-items post-items">
+
+                <div class="box-item post-item">
+                    <div class="image">
+                        <a href="">
+
+                            <img src="{% static 'site/assets/img/blog/blog_4.jpg' %}"
+                                 alt="Two Before Arrow Not Relied"/>
+
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-ios-book-outline"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="date">20 July 2020</div>
+                        <div class="categories">{{category.title}}</div>
+                        <a href="" class="name">Two Before Arrow Not Relied</a>
+                    </div>
+                </div>
+
+                <div class="box-item post-item">
+                    <div class="image">
+                        <a href="">
+
+                            <img src="{% static 'site/assets/img/blog/blog_2.jpg' %}" alt="By spite about what to do"/>
+
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-ios-book-outline"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="date">15 June 2020</div>
+                        <div class="categories">{{category.title}}</div>
+                        <a href="" class="name">By spite about what to do</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

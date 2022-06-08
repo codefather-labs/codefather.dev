@@ -21,22 +21,25 @@ from django.conf.urls.static import static
 from settings.environment.settings import get_settings_module
 from settings.utils import schema_view
 
-from apps.core.views import main
-
 settings = get_settings_module()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main, name='main_page'),
 
     # API URLS
-    path('api/v1/', include(('apps.core.urls', 'core'), namespace='core-urls')),
+    path('api/v1/', include(('apps.core.api.urls', 'core'), namespace='api-urls')),
+
+    # CORE URLS
+    path('', include(('apps.core.urls', 'core'), namespace='core-urls')),
 
     # SWAGGER URLS
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
     # REDOC URLS
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    path('mdeditor/', include('mdeditor.urls')),
+    path('djrichtextfield/', include('djrichtextfield.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

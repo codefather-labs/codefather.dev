@@ -1,0 +1,32 @@
+<header>
+    <div class="head-top">
+        <span class="sidebar_btn"><span></span></span>
+        <a href="#" class="menu-btn"><span></span></a>
+
+        <div class="top-menu">
+            <ul>
+                <li class="{% if context.page == 'main' %}active{% endif %}">
+                    <a href="{% url 'core-urls:main_url' %}" class="lnk">Home</a>
+                </li>
+                <li class="{% if context.page == 'resume' %}active{% endif %}">
+                    <a href="{% url 'core-urls:resume_url' %}" class="lnk">Resume</a>
+                </li>
+                <li class="{% if context.page == 'portfolio' %}active{% endif %}">
+                    <a href="{% url 'core-urls:portfolio_url' %}" class="lnk">Portfolio</a>
+                </li>
+                <li class="{% if context.page == 'blog' %}active{% endif %}">
+                    <a href="{% url 'core-urls:blog_url' %}" class="lnk">Blog</a>
+                </li>
+                <li class="{% if context.page == 'contacts' %}active{% endif %}">
+                    <a href="{% url 'core-urls:contacts_url' %}" class="btn">Contacts</a>
+                </li>
+<!--                <li>-->
+<!--                    <a href="">-->
+<!--                        <div id="theme_button" onclick="swap_theme()"></div>-->
+<!--                    </a>-->
+<!--                </li>-->
+
+            </ul>
+        </div>
+    </div>
+</header>

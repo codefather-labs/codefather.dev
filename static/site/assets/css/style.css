@@ -1,0 +1,53 @@
+html {
+    margin-right: 0 !important
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: "Roboto Mono";
+    font-size: 13px;
+    color: #363636;
+    background: #fff;
+    letter-spacing: 0;
+    font-weight: 400
+}
+
+body header, body footer, body .section {
+    opacity: 0;
+    visibility: hidden
+}
+
+body.loaded header, body.loaded footer, body.loaded .section {
+    opacity: 1;
+    visibility: visible
+}
+
+body.scroll_hidden {
+    overflow: hidden;
+    height: 100vh
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box
+}
+
+.clear {
+    clear: both
+}
+
+.container {
+    position: relative;
+    margin: 30px;
+    overflow: hidden;
+    background: #fff
+}
+
+@media (max-width: 840px) {
+    .container {
+        margin: 15px
+    }
+}
+

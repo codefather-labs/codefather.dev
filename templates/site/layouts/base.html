@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'site/includes/head.html' %}
+
+<body class="home" id="app">
+
+<!-- Preloader -->
+{% include 'site/includes/preloader.html' %}
+<!-- Container -->
+<div class="container" id="container">
+    <!-- Navbar -->
+    {% include 'site/includes/navbar.html' %}
+
+    <!-- Wrapper -->
+    {% block content %}
+    {% endblock content %}
+
+    <!-- Footer -->
+    {% include 'site/includes/footer.html' %}
+    <!-- Lines -->
+    <div class="line top"></div>
+    <div class="line bottom"></div>
+    <div class="line left"></div>
+    <div class="line right"></div>
+</div>
+
+<div class="s_overlay"></div>
+<!--Sidebar-->
+{% include 'site/includes/sidebar.html' %}
+
+<!-- Plugins -->
+{% include 'site/includes/plugins.html' %}
+</body>
+
+</html>

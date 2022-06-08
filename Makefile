@@ -1,6 +1,12 @@
 wait:
 	python3 -c "import time; time.sleep(3)"
 
+dump_fixtures:
+	python3 manage.py dumpdata > fixtures.json
+
+load_fixtures:
+	python3 manage.py loaddata fixtures.json
+
 local_migrate:
 	docker-compose -f docker-compose-local.yml up -d backend
 	make wait
@@ -29,3 +35,10 @@ local_up:
 
 local_down:
 	docker-compose -f docker-compose-local.yml down
+
+create_post:
+	python3 manage.py create_post
+
+parse_md:
+	python3 scripts/mdtohtml/main.py "/Users/$(USER)/PycharmProjects/codefather.dev/scripts/mdtohtml" "/Users/$(USER)/PycharmProjects/codefather.dev/templates/site/test_article.html"
+

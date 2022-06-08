@@ -133,5 +133,10 @@ dmypy.json
 .idea
 
 # staticfiles
-static/
+static/admin
+static/drf-yasg
+static/rest_framework
 media/
+
+post/*
+.DS_Store
