@@ -38,7 +38,13 @@ urlpatterns = [
     # REDOC URLS
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
+    # Editor urls
+    path('editor/', include(('apps.editor.urls', 'editor'), namespace='editor-urls')),
+    
+    # mdeditor urls
     path('mdeditor/', include('mdeditor.urls')),
+
+    # djrichtextfield urls
     path('djrichtextfield/', include('djrichtextfield.urls'))
 ]
 

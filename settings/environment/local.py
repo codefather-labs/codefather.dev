@@ -36,7 +36,8 @@ ALLOWED_HOSTS = ['*']
 
 PRE_ADMIN_APPS = []
 ROOT_APPS = [
-    'apps.core'
+    'apps.core',
+    'apps.editor'
 ]
 INSTALLED_APPS = [
     'corsheaders',

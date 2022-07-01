@@ -27,6 +27,7 @@ local_build:
 	make local_migrate
 	#make create_superuser
 
+	make load_fixtures
 	make local_collect_static
 	docker-compose -f docker-compose-local.yml down
 

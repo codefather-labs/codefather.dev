@@ -1,6 +1,7 @@
 from django.urls import path, include
 
 from apps.core import views as core_views
+from apps.editor.urls import urlpatterns as editor_patterns
 
 core_patterns = [
     path('', core_views.main, name='main_url'),
@@ -14,3 +15,4 @@ core_patterns = [
 
 urlpatterns = []
 urlpatterns += core_patterns
+urlpatterns += editor_patterns

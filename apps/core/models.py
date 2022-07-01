@@ -84,7 +84,6 @@ class Post(BaseModel):
         blank=True,
         null=True
     )
-
     author = models.CharField(
         max_length=255,
         default=None,
