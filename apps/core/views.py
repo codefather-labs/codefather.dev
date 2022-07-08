@@ -27,10 +27,10 @@ def resume(request: Request):
     })
 
 
-def portfolio(request: Request):
-    return render(request, 'site/portfolio.html', {
+def projects(request: Request):
+    return render(request, 'site/projects.html', {
         "context": {
-            "page": "portfolio"
+            "page": "projects"
         },
         "latest_posts": Post.objects.order_by('-created_at')[:5]
     })

@@ -9,6 +9,7 @@ from apps.core.models import Post, Tag, Category
 class PostAdmin(admin.ModelAdmin):
     readonly_fields = ('uuid',)
     prepopulated_fields = {"slug": ("title",)}
+    list_display = ('title', 'author', 'uuid')
     # form = PostForm
 
 

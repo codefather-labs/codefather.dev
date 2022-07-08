@@ -6,7 +6,7 @@ from apps.editor.urls import urlpatterns as editor_patterns
 core_patterns = [
     path('', core_views.main, name='main_url'),
     path('resume', core_views.resume, name='resume_url'),
-    path('portfolio', core_views.portfolio, name='portfolio_url'),
+    path('projects', core_views.projects, name='projects_url'),
     path('blog/', core_views.blog, name='blog_url'),
     path('blog/tag/<str:reference>', core_views.tag, name='tag_url'),
     path('blog/post/<str:reference>', core_views.post, name='post_url'),
@@ -15,4 +15,4 @@ core_patterns = [
 
 urlpatterns = []
 urlpatterns += core_patterns
-urlpatterns += editor_patterns
+

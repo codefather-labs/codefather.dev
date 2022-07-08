@@ -7,10 +7,15 @@
 
 
     <div class="soc">
-
+        {% if context.page == 'blog' %}
+        <a style="cursor: pointer">
+            <div id="reader_mode" onclick="swap_reader_mode()">Reader mode</div>
+        </a>
+        {% endif %}
         <a style="cursor: pointer">
             <div id="theme_button" onclick="swap_theme()"></div>
         </a>
+
 
         <!--        <a target="_blank" href="https://github.com/codefather-labs" title="GitHub"><span-->
         <!--                class="ion ion-social-github"></span></a>-->

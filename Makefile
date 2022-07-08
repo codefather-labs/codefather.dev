@@ -1,8 +1,17 @@
 wait:
 	python3 -c "import time; time.sleep(3)"
 
+delete_migrations:
+	find . -path "*/migrations/*.py" -not -path "*/site-packages/*" -not -path "*/migrations/__init__.py" -delete
+
 dump_fixtures:
 	python3 manage.py dumpdata > fixtures.json
+
+local_dump_common_fixtures:
+	python3 manage.py dumpdata --exclude admin.logentry --exclude auth.permission --exclude contenttypes.contenttype --exclude sessions.session > fixtures/common.json
+
+load_common_fixtures:
+	python3 manage.py loaddata fixtures/common.json
 
 load_fixtures:
 	python3 manage.py loaddata fixtures.json

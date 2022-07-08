@@ -1,6 +1,8 @@
 import base64
 import os
+import re
 from enum import Enum
+from urllib.parse import urlparse, ParseResult
 
 from mistletoe import HTMLRenderer, Document
 from drf_yasg import openapi
@@ -55,6 +57,13 @@ class PygmentsRenderer(HTMLRenderer):
             title = ' title="{}"'.format(self.escape_html(token.title))
         else:
             title = ''
+
+        # print(self.post_dir_path, token.src)
+        regex = r'(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))'
+        regex = re.compile(regex)
+        is_url: re.Match = regex.search(token.src)
+        if is_url:
+            token.src = "/" + "/".join(str(is_url.string).split("/")[1:])
 
         image_filepath = f"{self.post_dir_path}{token.src}"
         ext = image_filepath.split('.')[-1]

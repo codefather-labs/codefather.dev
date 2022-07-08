@@ -1,19 +1,43 @@
 import uuid
+from typing import Optional
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db.models import QuerySet
 from django.http import HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from apps.core.models import Post
 from apps.editor.models import EditedPostView
 from apps.editor.forms import EditedPostViewForm
+from apps.editor.utils import formatted_markdown
 
 
 @login_required(login_url='admin:login')
-def editor(request: HttpRequest, edited_post_view_uuid: str = None):
+def editor(request: HttpRequest, post_uuid: str = None, lang_code: str = None):
     if request.method == "POST":
-        form = EditedPostViewForm(request.POST)
+        data = {k: v[0] for k, v in dict(request.POST).items()}
+
+        post = Post.objects.get(uuid=post_uuid)
+        view: EditedPostView = EditedPostView.objects.get(source=post)
+        data.update({"uuid": str(view.uuid)})
+
+        form = EditedPostViewForm(data)
+
         if form.is_valid():
-            view = form.save()
+            data.pop('csrfmiddlewaretoken')
+            if data.get('id_markdown-wmd-wrapper-html-code'):
+                data.pop('id_markdown-wmd-wrapper-html-code')
+
+            data['markdown'] = EditedPostViewForm.swap_delimiters(data['markdown'])
+
+            instances: QuerySet[EditedPostView] = EditedPostView.objects.filter(
+                uuid=data['uuid'],
+                source=post
+            )
+            instances.update(**data)
+
+            view = instances.last()
 
             return render(request, 'editor/editor.html', {
                 "error": False,
@@ -26,43 +50,47 @@ def editor(request: HttpRequest, edited_post_view_uuid: str = None):
 
         return render(request, 'editor/editor.html', {
             "error": True,
-            "status": "Form is not valid",
+            "status": "Failed",
             "details": {
                 "form": form,
+                "model": None
             }
         }, status=200)
 
-    is_exists = False
-    if edited_post_view_uuid:
-        is_exists = True
+    post: Optional[Post] = None
 
-    if is_exists:
+    if post_uuid:
         try:
-            view = EditedPostView.objects.get(uuid=edited_post_view_uuid)
-        except EditedPostView.DoesNotExist:
-            return render(request, 'editor/editor.html', {
-                "error": True,
-                "status": "View was not found",
-                "details": {
-                    "form": EditedPostViewForm,
-                }
-            }, status=404)
-
-        return render(request, 'editor/editor.html', {
-            "error": False,
-            "status": "Success",
-            "details": {
-                "form": EditedPostViewForm(instance=view),
-                "model": view
-            }
-        }, status=200)
+            post = Post.objects.get(uuid=post_uuid)
+        except (ValidationError, Post.DoesNotExist):
+            ...
 
     else:
-        return render(request, 'editor/editor.html', {
-            "error": False,
-            "status": "Success",
-            "details": {
-                "form": EditedPostViewForm,
-                "model": EditedPostView(uuid=str(uuid.uuid4()))
-            }
-        }, status=200)
+        return redirect("editor-urls:editor-lang-post-url",
+                        post_uuid=str(uuid.uuid4()),
+                        lang_code=lang_code if lang_code else Post.DEFAULT_LANGUAGE)
+
+    if not post:
+        post, created = Post.objects.get_or_create(
+            uuid=post_uuid
+        )
+
+    if not lang_code:
+        return redirect("editor-urls:editor-lang-post-url",
+                        post_uuid=str(post.uuid),
+                        lang_code=lang_code if lang_code else Post.DEFAULT_LANGUAGE)
+
+    view, created = EditedPostView.objects.get_or_create(
+        source=post
+    )
+    view = EditedPostViewForm.update_form_preview(view, post)
+
+    return render(request, 'editor/post.html', {
+        "error": False,
+        "status": "Success",
+        "details": {
+            "form": EditedPostViewForm(instance=view),
+            "model": view,
+            "markdown": formatted_markdown(view.markdown)
+        }
+    }, status=200)

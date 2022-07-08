@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-foez$+0ren1#btn$8ay!mzoybqti$^n72-a!z4@4u%#ij6n88c
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-HOST = str(os.environ.get("HOST", "localhost:8000"))
+HOST = str(os.environ.get("HOST", "localhost:9000"))
 
 ALLOWED_HOSTS = ['*']
 
@@ -172,7 +172,7 @@ REST_FRAMEWORK = {
 # ------------------------------------------------------------------------------
 MDEDITOR_CONFIGS = {
     'default': {
-        'width': '90% ',  # Custom edit box width
+        'width': '100% ',  # Custom edit box width
         'height': 500,  # Custom edit box height
         'toolbar': ["undo", "redo", "|",
                     "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
@@ -194,9 +194,12 @@ MDEDITOR_CONFIGS = {
         'flow_chart': True,  # whether to open the flow chart function
         'sequence': True,  # Whether to open the sequence diagram function
         'watch': True,  # Live preview
-        'lineWrapping': False,  # lineWrapping
-        'lineNumbers': False,  # lineNumbers
-        'language': 'en'  # zh / en / es
+        'lineWrapping': True,  # lineWrapping
+        'lineNumbers': True,  # lineNumbers
+        'language': 'en',  # zh / en / es
+        "mode": "markdown",
+        "markdown": True,
+        "appendMarkdown": True,
     }
 }
 

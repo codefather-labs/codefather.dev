@@ -37,16 +37,19 @@ class Category(BaseModel):
 
 
 class Post(BaseModel):
+    DEFAULT_LANGUAGE = 'en'
     language = models.CharField(
         max_length=255,
         default='ru',
-        null=False,
+        null=True,
+        blank=True
     )
 
     title = models.CharField(
         max_length=255,
         default=None,
-        null=False,
+        null=True,
+        blank=True,
         db_index=True
     )
 
@@ -55,6 +58,7 @@ class Post(BaseModel):
         db_index=True,
         default=None,
         null=True,
+        blank=True,
         allow_unicode=True
     )
 
@@ -67,7 +71,7 @@ class Post(BaseModel):
 
     body = RichTextField(
         default=None,
-        null=False,
+        null=True,
         help_text="HTML представление",
         blank=True
     )
@@ -87,25 +91,32 @@ class Post(BaseModel):
     author = models.CharField(
         max_length=255,
         default=None,
-        null=True
+        null=True,
+        blank=True
     )
     author_contact = models.CharField(
         max_length=255,
         default=None,
-        null=True
+        null=True,
+        blank=True
     )
 
     is_comments_available = models.BooleanField(
         default=True,
         null=True,
+        blank=True
     )
 
     is_already_formatted = models.BooleanField(
         default=False,
         null=True,
+        blank=True
     )
 
     def save(self, *args, **kwargs):
+        if not self.language:
+            self.language = self.DEFAULT_LANGUAGE
+
         if not self.is_already_formatted:
             self.body = markdown_to_html(str(self.markdown))
             self.is_already_formatted = True

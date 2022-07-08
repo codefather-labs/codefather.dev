@@ -11,13 +11,15 @@ class EditedPostView(mixins.AutoincrementIDMixin,
     language = models.CharField(
         max_length=255,
         default='ru',
-        null=False,
+        null=True,
+        blank=True
     )
 
     title = models.CharField(
         max_length=255,
         default=None,
-        null=False,
+        null=True,
+        blank=True,
         db_index=True
     )
 
@@ -25,13 +27,14 @@ class EditedPostView(mixins.AutoincrementIDMixin,
         max_length=255,
         db_index=True,
         default=None,
+        blank=True,
         null=True,
         allow_unicode=True
     )
 
     markdown = MDTextField(
         default=None,
-        null=False,
+        null=True,
         help_text="Markdown представление",
         blank=True
     )
@@ -43,6 +46,9 @@ class EditedPostView(mixins.AutoincrementIDMixin,
         null=True,
         blank=True
     )
+
+    # class Meta:
+    #     constraints = ()
 
     def __str__(self):
         return "%s, %s" % (self.language, self.title)

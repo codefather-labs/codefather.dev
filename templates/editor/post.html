@@ -1,0 +1,261 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'site/includes/head.html' %}
+
+<style id="reader_mode_style">
+    p, h1, h2, h3, h4, td {
+        padding: 2px; /* Поля вокруг текста */
+    }
+
+    p:hover, h1:hover, h2:hover, h3:hover, h4:hover, td:hover, li:hover {
+        border-bottom: solid #ee7a2d 1px;
+        text-decoration: none; /* Убираем подчеркивание */
+        background: #f6f6f6; /* Цвет фона */
+        padding-left: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<body class="home" id="app">
+
+<!-- Preloader -->
+{% include 'site/includes/preloader.html' %}
+<!-- Container -->
+<div class="container" id="container">
+    <!-- Wrapper -->
+    {% block content %}
+    <div class="wrapper">
+        <!-- Started -->
+        <div class="section started">
+            <div class="centrize full-width">
+                <div class="vertical-center">
+                    <div class="started-content">
+                        <div class="date">{{details.model.source.clear_created_date}}</div>
+                        <div class="h-title blog_title">{{details.model.source.title}}</div>
+                        <div class="h-subtitle typing-bread">
+                            <p><a href="http://localhost:8000">Home</a> / <a
+                                    href="/blog/post/{{details.model.source.slug}}">{{details.model.source.title}}</a>
+                            </p>
+                        </div>
+                        <span class="typed-bread"></span>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="mouse_btn"><span class="ion ion-mouse"></span></a>
+        </div>
+        <br><br>
+
+        <!-- Blog -->
+        <div class="section blog">
+            <div class="content" id="app">
+
+                <div class="single-post-text">
+                    {{ details.model.source.body|safe }}
+                </div>
+
+                <div class="post-text-bottom">
+                    <div class="social-share" data-title="Welcome to Jekyll!"
+                         data-url="http://localhost:4000/video/music/2020/08/08/welcome-to-jekyll/">
+                        <span>Share:</span>
+                        <a class="share-btn share-btn-facebook share-btn-1" title="Share on Facebook">
+                            <i class="ion ion-social-facebook"></i>
+                        </a>
+                        <a class="share-btn share-btn-twitter share-btn-2" title="Share on Twitter">
+                            <i class="ion ion-social-twitter"></i>
+                        </a>
+                        <a class="share-btn share-btn-linkedin share-btn-3" title="Share on Linkedin">
+                            <i class="ion ion-social-linkedin"></i>
+                        </a>
+                        <a class="share-btn share-btn-reddit share-btn-4" title="Share on Reddit">
+                            <i class="ion ion-social-reddit"></i>
+                        </a>
+                        <a class="share-btn share-btn-pinterest share-btn-5" title="Share on Pinterest">
+                            <i class="ion ion-social-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+</div>
+
+
+<!-- Plugins -->
+{% load static %}
+
+<!-- Plugins -->
+<script src="{% static 'site/assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'site/assets/js/jquery.validate.js' %}"></script>
+<script src="{% static 'site/assets/js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'site/assets/js/imagesloaded.pkgd.js' %}"></script>
+<script src="{% static 'site/assets/js/isotope.pkgd.js' %}"></script>
+<script src="{% static 'site/assets/js/owl.carousel.js' %}"></script>
+<script src="{% static 'site/assets/js/typed.js' %}"></script>
+<script src="{% static 'site/assets/js/rrssb.js' %}"></script>
+<script src="{% static 'site/assets/js/simple-jekyll-search.js' %}"></script>
+
+<!-- Main -->
+<script>
+    // /* Preloader */
+    window.addEventListener('load', (ev => {
+        $(".preloader .pre-inner").fadeOut(800, function () {
+            /* Preload hide */
+            $('.preloader').fadeOut();
+            $('body').addClass('loaded');
+
+            /* Typed subtitle */
+            $('.typed-subtitle').typed({
+                stringsElement: $('.typing-subtitle'),
+                loop: true
+            });
+
+            /* Typed breadcrumbs */
+            $('.typed-bread').typed({
+                stringsElement: $('.typing-bread'),
+                showCursor: false
+            });
+
+            /* One Page Nav */
+            var url_hash = location.hash;
+            var sectionElem = $(url_hash);
+            if (url_hash.indexOf('#section-') == 0 && sectionElem.length) {
+                $('body, html').animate({scrollTop: $(url_hash).offset().top - 70}, 400);
+            }
+        });
+    }))
+
+</script>
+
+<script src="{% static 'site/assets/js/glitche-scripts.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.3/vue.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        delimiter: ["[[", "]]"],
+        data: {
+            selected: false,
+            selected_id: null,
+            preview_content: {}
+        }
+    })
+</script>
+
+<script>
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function wait_for_translate_window() {
+
+        app.selected = true;
+        while (app.selected) {
+            await sleep(500)
+
+            let wd = document.getElementsByClassName(
+                "wt-sky-long-dialog"
+            );
+            if (wd[0]) {
+                let translated_text = wd[0].innerText;
+                let selected_div = document.getElementById(app.selected_id);
+
+                // selected_div.innerText = translated_text;
+
+                // wd[0].remove();
+                app.selected = false;
+
+            }
+        }
+    }
+
+    async function selectText(node) {
+        if (document.body.createTextRange) {
+            const range = document.body.createTextRange();
+            range.moveToElementText(node);
+            range.select();
+        } else if (window.getSelection) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            console.warn("Could not select text in node: Unsupported browser.");
+        }
+        await sleep(0.1);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+    }
+
+    const p = document.getElementById('app');
+
+    function create_UUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
+    function isChildOf(childObject, containerObject) {
+        var returnValue = false;
+        var currentObject;
+
+        if (typeof containerObject === 'string') {
+            containerObject = document.getElementById(containerObject);
+        }
+        if (typeof childObject === 'string') {
+            childObject = document.getElementById(childObject);
+        }
+
+        currentObject = childObject.parentNode;
+
+        while (currentObject !== undefined) {
+            if (currentObject === document.body) {
+                break;
+            }
+
+            if (currentObject.id == containerObject.id) {
+                returnValue = true;
+                break;
+            }
+
+            // Move up the hierarchy
+            currentObject = currentObject.parentNode;
+        }
+
+        return returnValue;
+    }
+
+    p.addEventListener('click', (e) => {
+        let source_el = e.path[0];
+        let blog = document.getElementById("app");
+
+        if (blog.contains(source_el)) {
+            if (!source_el.hasAttribute("id")) {
+                source_el.setAttribute("id", create_UUID())
+            }
+
+            selectText(source_el);
+
+            app.selected_id = source_el.getAttribute("id");
+            wait_for_translate_window()
+        }
+    })
+
+    p.addEventListener('mouseup', (e) => {
+        // let source_el = e.path[0]
+        // selectText(source_el);
+
+        // const selection = window.getSelection();
+    });
+
+
+</script>
+</body>
+
+</html>

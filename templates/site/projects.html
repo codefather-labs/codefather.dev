@@ -1,0 +1,356 @@
+{% extends 'site/layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Started -->
+    <div class="section started">
+        <div class="centrize full-width">
+            <div class="vertical-center">
+                <div class="started-content">
+                    <div class="h-title glitch-effect" data-text="Projects">Projects</div>
+                    <div class="h-subtitle typing-bread">
+                        <p><a href="http://localhost:8000">Home</a> / <a
+                                href="http://localhost:8000/projects">Projects</a>
+                        </p>
+                    </div>
+                    <span class="typed-bread"></span>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="mouse_btn"><span class="ion ion-mouse"></span></a>
+    </div>
+
+    <!-- Works -->
+    <div class="section works">
+        <div class="content">
+
+            <div class="filter-menu">
+                <div class="filters">
+
+                    <div class="btn-group">
+                        <label data-text="All" class="glitch-effect">
+                            <input type="radio" name="fl_radio" value=".box-item"/>All
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label data-text="Links">
+                            <input type="radio" name="fl_radio" value=".f-ideas"/>Ideas
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <label data-text="Image">
+                            <input type="radio" name="fl_radio" value=".f-opensource"/>Opensource
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <label data-text="Gallery">
+                            <input type="radio" name="fl_radio" value=".f-production"/>Production
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-items portfolio-items">
+
+
+                <div class="box-item f-opensource">
+                    <div class="image">
+                        <a href="#gallery--works-amore-mio-three-cups" class="has-popup-gallery">
+                            <img src="{% static 'site/assets/img/works/work5.jpg' %}" alt="Amore Mio Three Cups"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-images"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                        <div id="gallery--works-amore-mio-three-cups" class="mfp-hide">
+
+
+                            <a href="{% static 'site/assets/img/works/work5.jpg' %}"></a>
+
+                            <a href="{% static 'site/assets/img/works/work6.jpg' %}"></a>
+
+                            <a href="{% static 'site/assets/img/works/work7.jpg' %}"></a>
+
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Opensource</div>
+                        <a href="#gallery-1" class="name has-popup-gallery">Amore Mio Three Cups</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-opensource">
+                    <div class="image">
+                        <a href="#gallery--works-canvas-tote-bag-mockup" class="has-popup-gallery">
+                            <img src="{% static 'site/assets/img/works/work1.jpg' %}" alt="Canvas Tote Bag MockUp"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-images"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                        <div id="gallery--works-canvas-tote-bag-mockup" class="mfp-hide">
+
+
+                            <a href="{% static 'site/assets/img/works/work1.jpg' %}"></a>
+
+                            <a href="{% static 'site/assets/img/works/work2.jpg' %}"></a>
+
+                            <a href="{% static 'site/assets/img/works/work3.jpg' %}"></a>
+
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Opensource</div>
+                        <a href="#gallery-1" class="name has-popup-gallery">Canvas Tote Bag MockUp</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-ideas">
+                    <div class="image">
+                        <a href="#popup--works-cardboard-box" class="has-popup-media">
+                            <img src="{% static 'site/assets/img/works/work3.jpg' %}" alt="Cardboard Box"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-ios-plus-empty"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Idea</div>
+                        <a href="#popup--works-cardboard-box" class="name has-popup-media">Cardboard Box</a>
+                    </div>
+                    <div id="popup--works-cardboard-box" class="popup-box mfp-fade mfp-hide">
+                        <div class="content">
+                            <div class="image">
+                                <img src="{% static 'site/assets/img/works/work3.jpg' %}" alt="Cardboard Box"/>
+                            </div>
+                            <div class="desc">
+                                <div class="category">Content</div>
+                                <h4>Cardboard Box</h4>
+                                <div class="single-post-text">
+                                    <p>So striking at of to welcomed resolved. Northward by described up household
+                                        therefore attention. Excellence decisively nay man yet impression for contrasted
+                                        remarkably.</p>
+
+                                    <p>Forfeited you engrossed but gay sometimes explained. Another as studied it to
+                                        evident. Merry sense given he be arise. Conduct at an replied removal an
+                                        amongst. Remaining determine few her two cordially admitting old.</p>
+
+                                    <p>^Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                                        Curae; Pellentesque suscipit.</p>
+
+                                    <p>Tiled say decay spoil now walls meant house. My mr interest thoughts screened of
+                                        outweigh removing. Evening society musical besides inhabit ye my. Lose hill well
+                                        up will he over on. Increasing sufficient everything men him admiration
+                                        unpleasing.</p>
+
+                                    <ul>
+                                        <li>Greatest properly off ham exercise all.</li>
+                                        <li>Unsatiable invitation its possession nor off.</li>
+                                        <li>All difficulty estimating unreserved increasing the solicitude.</li>
+                                    </ul>
+
+                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant. Death
+                                        means up civil do an offer wound of.</p>
+
+                                </div>
+
+                                <a href="https://bslthemes.com/" target="_blank" class="btn" data-text="View Project">View
+                                    Project</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-ideas">
+                    <div class="image">
+                        <a href="https://youtu.be/S4L8T2kFFck" class="has-popup-video">
+                            <img src="{% static 'site/assets/img/works/work2.jpg' %}" alt="Coffee Cup In Hand"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-videocamera"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Idea</div>
+                        <a href="https://youtu.be/S4L8T2kFFck" class="name has-popup-video">Coffee Cup In Hand</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-ideas">
+                    <div class="image">
+                        <a href="https://bslthemes.com/" class="has-popup-link" target="_blank">
+                            <img src="{% static 'site/assets/img/works/work3.jpg' %}"
+                                 alt="Love & Care Ceramic Bottles"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-link"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Idea</div>
+                        <a target="_blank" href="https://bslthemes.com/" class="name has-popup-link">Love & Care Ceramic
+                            Bottles</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-ideas">
+                    <div class="image">
+                        <a href="https://w.soundcloud.com/player/?visual=true&#038;url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F221650664&#038;show_artwork=true"
+                           class="has-popup-music">
+                            <img src="{% static 'site/assets/img/works/work6.jpg' %}"
+                                 alt="Marta Veludo Beautiful Poster"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-music-note"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Idea</div>
+                        <a href="https://w.soundcloud.com/player/?visual=true&#038;url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F221650664&#038;show_artwork=true"
+                           class="name has-popup-music">Marta Veludo Beautiful Poster</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-ideas">
+                    <div class="image">
+                        <a href="{% static 'site/assets/img/works/work7.jpg' %}" class="has-popup-image">
+                            <img src="{% static 'site/assets/img/works/work7.jpg' %}" alt="Minimal Poster Frame"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-image"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Idea</div>
+                        <a href="{% static 'site/assets/img/works/work7.jpg' %}" class="name has-popup-image">Minimal
+                            Poster Frame</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-production">
+                    <div class="image">
+                        <a href="{% static 'site/assets/img/works/work4.jpg' %}" class="has-popup-image">
+                            <img src="{% static 'site/assets/img/works/work4.jpg' %}" alt="Shopping gift bag"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-image"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Production</div>
+                        <a href="{% static 'site/assets/img/works/work4.jpg' %}" class="name has-popup-image">Shopping
+                            gift bag</a>
+                    </div>
+                </div>
+
+
+                <div class="box-item f-production">
+                    <div class="image">
+                        <a href="#popup--works-social-website" class="has-popup-media">
+                            <img src="{% static 'site/assets/img/works/work9.jpg' %}" alt="Social Website"/>
+                            <span class="info">
+							<span class="centrize full-width">
+								<span class="vertical-center">
+									<span class="ion ion-ios-plus-empty"></span>
+								</span>
+							</span>
+						</span>
+                        </a>
+                    </div>
+                    <div class="desc">
+                        <div class="category">Production</div>
+                        <a href="#popup--works-social-website" class="name has-popup-media">Social Website</a>
+                    </div>
+                    <div id="popup--works-social-website" class="popup-box mfp-fade mfp-hide">
+                        <div class="content">
+                            <div class="image">
+                                <img src="{% static 'site/assets/img/works/work9.jpg' %}" alt="Social Website"/>
+                            </div>
+                            <div class="desc">
+                                <div class="category">Content</div>
+                                <h4>Social Website</h4>
+                                <div class="single-post-text">
+                                    <p>So striking at of to welcomed resolved. Northward by described up household
+                                        therefore attention. Excellence decisively nay man yet impression for contrasted
+                                        remarkably.</p>
+
+                                    <p>Forfeited you engrossed but gay sometimes explained. Another as studied it to
+                                        evident. Merry sense given he be arise. Conduct at an replied removal an
+                                        amongst. Remaining determine few her two cordially admitting old.</p>
+
+                                    <p>^Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                                        Curae; Pellentesque suscipit.</p>
+
+                                    <p>Tiled say decay spoil now walls meant house. My mr interest thoughts screened of
+                                        outweigh removing. Evening society musical besides inhabit ye my. Lose hill well
+                                        up will he over on. Increasing sufficient everything men him admiration
+                                        unpleasing.</p>
+
+                                    <ul>
+                                        <li>Greatest properly off ham exercise all.</li>
+                                        <li>Unsatiable invitation its possession nor off.</li>
+                                        <li>All difficulty estimating unreserved increasing the solicitude.</li>
+                                    </ul>
+
+                                    <p>Unpleasant astonished an diminution up partiality. Noisy an their of meant. Death
+                                        means up civil do an offer wound of.</p>
+
+                                </div>
+
+                                <a href="https://bslthemes.com/" target="_blank" class="btn" data-text="View Project">View
+                                    Project</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

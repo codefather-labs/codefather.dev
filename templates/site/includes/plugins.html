@@ -10,9 +10,41 @@
 <script src="{% static 'site/assets/js/typed.js' %}"></script>
 <script src="{% static 'site/assets/js/rrssb.js' %}"></script>
 <script src="{% static 'site/assets/js/simple-jekyll-search.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.3/vue.min.js"></script>
 
 <!-- Main -->
 <script src="{% static 'site/assets/js/glitche-scripts.js' %}"></script>
+
+<script>
+    // /* Preloader */
+    window.addEventListener('load', (ev => {
+        $(".preloader .pre-inner").fadeOut(800, function () {
+            /* Preload hide */
+            $('.preloader').fadeOut();
+            $('body').addClass('loaded');
+
+            /* Typed subtitle */
+            $('.typed-subtitle').typed({
+                stringsElement: $('.typing-subtitle'),
+                loop: true
+            });
+
+            /* Typed breadcrumbs */
+            $('.typed-bread').typed({
+                stringsElement: $('.typing-bread'),
+                showCursor: false
+            });
+
+            /* One Page Nav */
+            var url_hash = location.hash;
+            var sectionElem = $(url_hash);
+            if (url_hash.indexOf('#section-') == 0 && sectionElem.length) {
+                $('body, html').animate({scrollTop: $(url_hash).offset().top - 70}, 400);
+            }
+        });
+    }))
+
+</script>
 
 <!--Switch theme side script-->
 <script>
@@ -30,3 +62,244 @@
         button.setAttribute('class', "glitch-effect");
     }
 </script>
+<script>
+    let reader_mode = false;
+
+    async function print_page() {
+
+        if (reader_mode) {
+            window.print();
+        } else {
+            await enable_reader_mode()
+            window.print();
+            await disable_reader_mode()
+        }
+
+    }
+
+    async function add_reader_style() {
+        const styles = document.createElement("style");
+        styles.setAttribute("id", "reader_mode_style");
+        styles.innerText = `p, h1, h2, h3, h4, td {
+            padding: 2px; /* Поля вокруг текста */
+        }
+
+        p:hover, h1:hover, h2:hover, h3:hover, h4:hover, td:hover, li:hover {
+            border-left: solid #ee7a2d 3px;
+            text-decoration: none; /* Убираем подчеркивание */
+
+            padding-left: 5px;
+            cursor: pointer;
+        }
+
+        .highlight:hover {
+            border-left: solid #ee7a2d 3px;
+            cursor: pointer;
+        }
+        `
+        document.head.appendChild(styles);
+    }
+
+    async function remove_reader_style() {
+        const styles = document.getElementById("reader_mode_style");
+        styles.remove();
+    }
+
+    async function enable_reader_mode() {
+        console.log("enabled")
+        reader_mode = true;
+
+        let header = document.getElementById("header")
+        let sidebar = document.getElementById("sidebar");
+
+        let line_top = document.getElementById("line_top");
+        let line_bottom = document.getElementById("line_bottom");
+        let line_left = document.getElementById("line_left");
+        let line_right = document.getElementById("line_right");
+
+        let footer = document.getElementById("footer_app");
+
+        sidebar.setAttribute("hidden", "true")
+        header.setAttribute("hidden", "true");
+        footer.setAttribute("hidden", "true");
+
+        line_top.remove();
+        line_bottom.remove();
+        line_left.remove();
+        line_right.remove();
+
+        // line_top.setAttribute("hidden", "true");
+        // line_bottom.setAttribute("hidden", "true");
+        // line_left.setAttribute("hidden", "true");
+        // line_right.setAttribute("hidden", "true");
+
+        await add_reader_style()
+
+    }
+
+    async function disable_reader_mode() {
+        console.log("disabled")
+        reader_mode = false;
+
+        let header = document.getElementById("header")
+        let sidebar = document.getElementById("sidebar");
+
+        let line_top = document.getElementById("line_top");
+        let line_bottom = document.getElementById("line_bottom");
+        let line_left = document.getElementById("line_left");
+        let line_right = document.getElementById("line_right");
+
+        let footer = document.getElementById("footer_app");
+
+        header.removeAttribute("hidden");
+        sidebar.removeAttribute("hidden");
+        footer.removeAttribute("hidden");
+
+        line_top.removeAttribute("hidden");
+        line_bottom.removeAttribute("hidden");
+        line_left.removeAttribute("hidden");
+        line_right.removeAttribute("hidden");
+
+        await remove_reader_style()
+    }
+
+    async function swap_reader_mode() {
+        if (reader_mode === false) {
+            await enable_reader_mode()
+        } else {
+            await disable_reader_mode()
+        }
+
+    }
+</script>
+
+<script>
+    var app = new Vue({
+        el: '#content',
+        delimiter: ["[[", "]]"],
+        data: {
+            selected: false,
+            selected_id: null,
+            preview_content: {}
+        }
+    })
+</script>
+
+{% if context.page == "blog" %}
+<script>
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function wait_for_translate_window() {
+
+        app.selected = true;
+        while (app.selected) {
+            await sleep(500)
+
+            let wd = document.getElementsByClassName(
+                "wt-sky-long-dialog"
+            );
+            if (wd[0]) {
+                let translated_text = wd[0].innerText;
+                let selected_div = document.getElementById(app.selected_id);
+
+                // selected_div.innerText = translated_text;
+
+                // wd[0].remove();
+                app.selected = false;
+
+            }
+        }
+    }
+
+    async function selectText(node) {
+        if (document.body.createTextRange) {
+            const range = document.body.createTextRange();
+            range.moveToElementText(node);
+            range.select();
+        } else if (window.getSelection) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            console.warn("Could not select text in node: Unsupported browser.");
+        }
+        await sleep(0.1);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+    }
+
+    const p = document.getElementById('content');
+
+    function create_UUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
+    function isChildOf(childObject, containerObject) {
+        var returnValue = false;
+        var currentObject;
+
+        if (typeof containerObject === 'string') {
+            containerObject = document.getElementById(containerObject);
+        }
+        if (typeof childObject === 'string') {
+            childObject = document.getElementById(childObject);
+        }
+
+        currentObject = childObject.parentNode;
+
+        while (currentObject !== undefined) {
+            if (currentObject === document.body) {
+                break;
+            }
+
+            if (currentObject.id == containerObject.id) {
+                returnValue = true;
+                break;
+            }
+
+            // Move up the hierarchy
+            currentObject = currentObject.parentNode;
+        }
+
+        return returnValue;
+    }
+
+    p.addEventListener('click', (e) => {
+        if (reader_mode) {
+            let source_el = e.path[0];
+            let blog = document.getElementById("content");
+
+            if (blog.contains(source_el)) {
+                if (!source_el.hasAttribute("id")) {
+                    source_el.setAttribute("id", create_UUID())
+                }
+
+                selectText(source_el);
+
+                app.selected_id = source_el.getAttribute("id");
+                wait_for_translate_window()
+            }
+        }
+
+    })
+
+    p.addEventListener('mouseup', (e) => {
+        // let source_el = e.path[0]
+        // selectText(source_el);
+
+        // const selection = window.getSelection();
+    });
+
+
+</script>
+{% endif %}
