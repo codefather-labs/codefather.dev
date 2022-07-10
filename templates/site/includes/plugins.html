@@ -98,15 +98,28 @@
         }
         `
         document.head.appendChild(styles);
+
+        let saved_theme = getCookie('theme');
+
+        if (saved_theme === 'black') {
+            let body = document.body
+            body.setAttribute("style", "background: #31313a;")
+        }
     }
 
     async function remove_reader_style() {
         const styles = document.getElementById("reader_mode_style");
         styles.remove();
+
+        let saved_theme = getCookie('theme');
+
+        if (saved_theme === 'black') {
+            let body = document.body
+            body.setAttribute("style", "background: #26262d;")
+        }
     }
 
     async function enable_reader_mode() {
-        console.log("enabled")
         reader_mode = true;
 
         let header = document.getElementById("header")
@@ -123,22 +136,16 @@
         header.setAttribute("hidden", "true");
         footer.setAttribute("hidden", "true");
 
-        line_top.remove();
-        line_bottom.remove();
-        line_left.remove();
-        line_right.remove();
-
-        // line_top.setAttribute("hidden", "true");
-        // line_bottom.setAttribute("hidden", "true");
-        // line_left.setAttribute("hidden", "true");
-        // line_right.setAttribute("hidden", "true");
+        line_top.setAttribute("hidden", "true");
+        line_bottom.setAttribute("hidden", "true");
+        line_left.setAttribute("hidden", "true");
+        line_right.setAttribute("hidden", "true");
 
         await add_reader_style()
 
     }
 
     async function disable_reader_mode() {
-        console.log("disabled")
         reader_mode = false;
 
         let header = document.getElementById("header")
@@ -299,7 +306,6 @@
 
         // const selection = window.getSelection();
     });
-
-
 </script>
+<!--<script src="{% static 'site/vimbox.js' %}"></script>-->
 {% endif %}

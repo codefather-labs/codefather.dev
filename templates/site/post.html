@@ -9,10 +9,9 @@
             <div class="vertical-center">
                 <div class="started-content">
                     <div class="date">{{post.clear_created_date}}</div>
-                    <div class="h-title blog_title">{{post.title}}</div>
+                    {{post.glitch_title|safe}}
                     <div class="h-subtitle typing-bread">
-                        <p><a href="http://localhost:8000">Home</a> / <a
-                                href="/blog/post/{{post.slug}}">{{post.title}}</a></p>
+                        <p>by <a href="">{{post.author}}</a></p>
                     </div>
                     <span class="typed-bread"></span>
                 </div>

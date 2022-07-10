@@ -124,3 +124,33 @@ class Post(BaseModel):
 
     def __str__(self):
         return f"{self.title}, {self.author}"
+
+    @property
+    def glitch_title(self):
+        splited = str(self.title).split(' ')
+        result = []
+        buf = []
+        to_html = lambda x: '<div ' \
+                            'class="blog_title glitch-effect" ' \
+                            'data-text="%s">%s</div>' % (x, x)
+        while splited:
+            item = splited.pop(0)
+            buf_len = len(" ".join(buf))
+            if len(item) + buf_len < 20:
+                buf.append(item)
+
+            else:
+                result.append(to_html(" ".join(buf)))
+                buf.clear()
+                buf.append(item)
+
+        else:
+            if buf:
+                result.append(to_html(" ".join(buf)))
+                buf.clear()
+
+        return """
+        <div class="h-title blog_title">
+            %s
+        </div>
+        """ % "\n".join(result)

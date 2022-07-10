@@ -9,49 +9,53 @@ from apps.core.models import Post, Tag
 from settings.logger import system_message
 
 
-def main(request: Request):
-    return render(request, 'site/base.html', {
+def create_context(page_name: str):
+    return {
         "context": {
-            "page": "main"
+            "page": page_name
         },
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
-    })
+        "latest_posts": Post.objects.order_by('-created_at')[:10]
+    }
+
+
+def main(request: Request):
+    return render(
+        request,
+        'site/base.html',
+        create_context('main')
+    )
 
 
 def resume(request: Request):
-    return render(request, 'site/resume.html', {
-        "context": {
-            "page": "resume"
-        },
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
-    })
+    return render(
+        request,
+        'site/resume.html',
+        create_context('resume')
+    )
 
 
 def projects(request: Request):
-    return render(request, 'site/projects.html', {
-        "context": {
-            "page": "projects"
-        },
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
-    })
+    return render(
+        request,
+        'site/projects.html',
+        create_context('projects')
+    )
 
 
 def blog(request: Request):
-    return render(request, 'site/blog.html', {
-        "context": {
-            "page": "blog"
-        },
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
-    })
+    return render(
+        request,
+        'site/blog.html',
+        create_context('blog')
+    )
 
 
 def contacts(request: Request):
-    return render(request, 'site/contacts.html', {
-        "context": {
-            "page": "contacts"
-        },
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
-    })
+    return render(
+        request,
+        'site/contacts.html',
+        create_context('contacts')
+    )
 
 
 def tag(request: Request, reference: str):
@@ -67,13 +71,9 @@ def tag(request: Request, reference: str):
         return Http404("Post was not found")
 
     return render(request, 'site/tag.html', {
-        "context": {
-            "page": "blog"
-        },
         "tag": {
             "title": tag.title,
-        },
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
+        }, **create_context('blog')
     })
 
 
@@ -90,9 +90,5 @@ def post(request: Request, reference: Union[str, str]):
         return Http404("Post was not found")
 
     return render(request, 'site/post.html', {
-        "context": {
-            "page": "blog"
-        },
-        "post": post,
-        "latest_posts": Post.objects.order_by('-created_at')[:5]
+        "post": post, **create_context('blog')
     })
