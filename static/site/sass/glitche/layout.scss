@@ -869,7 +869,7 @@ header {
 		    display: block;
 		    width: 20px;
 		    height: 20px;
-		    background: url(../images/pag.png) no-repeat center center;
+		    background: url({% static 'site/assets/images/pag.png' %}) no-repeat center center;
 		    -webkit-transform: scaleX(-1);
 		    transform: scaleX(-1);
 	    }

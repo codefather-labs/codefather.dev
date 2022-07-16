@@ -19,8 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 
-from settings.environment.settings import \
-    get_settings_module, environment, Environment
+from settings.environment.settings import get_settings_module
 from settings.utils import schema_view
 
 settings = get_settings_module()
