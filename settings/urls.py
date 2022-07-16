@@ -27,7 +27,7 @@ settings = get_settings_module()
 
 admin_patterns = [path('admin/', admin.site.urls)]
 
-basepatterns = [
+urlpatterns = [
     # API URLS
     path('api/v1/', include(('apps.core.api.urls', 'core'), namespace='api-urls')),
 
@@ -50,13 +50,12 @@ basepatterns = [
     path('djrichtextfield/', include('djrichtextfield.urls'))
 ]
 
-basepatterns += static(settings.MEDIA_URL,
-                       document_root=settings.MEDIA_ROOT)
-basepatterns += static(settings.STATIC_URL,
-                       document_root=settings.STATIC_ROOT)
-
-urlpatterns = basepatterns
 if settings.ADMIN_ROUTER_ENABLED:
     urlpatterns += admin_patterns
 else:
     del admin_patterns
+
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL,
+                      document_root=settings.STATIC_ROOT)
