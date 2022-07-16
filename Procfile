@@ -1,0 +1,1 @@
+web: uvicorn settings.asgi:application --loop uvloop --reload

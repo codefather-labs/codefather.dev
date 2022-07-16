@@ -14,7 +14,7 @@ load_common_fixtures:
 	python3 manage.py loaddata fixtures/common.json
 
 load_fixtures:
-	python3 manage.py loaddata fixtures.json
+	python3 manage.py loaddata fixtures/fixtures.json
 
 local_migrate:
 	docker-compose -f docker-compose-local.yml up -d backend
