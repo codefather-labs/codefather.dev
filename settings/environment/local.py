@@ -262,8 +262,3 @@ CORS_ALLOW_HEADERS = [
     "Access-Control-Max-Age",
     "Access-Control-Allow-Headers",
 ]
-django_settings_error = check_django_settings()
-system_message(django_settings_error) if django_settings_error else None
-
-cors_settings_error = check_cors_settings(CORS_ALLOW_HEADERS)
-system_message(cors_settings_error) if cors_settings_error else None
