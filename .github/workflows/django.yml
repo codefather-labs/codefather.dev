@@ -26,6 +26,13 @@ jobs:
       run: |
         python3.10 -m pip install --upgrade pip
         python3.10 -m pip install -r requirements.txt
+    - name: Migrations
+      run: |
+        python3.10 manage.py makemigrations
+        python3.10 manage.py migrate
+    - name: Collect static
+      run: |
+        python3.10 manage.py collectstatic --noinput
     - name: Run Tests
       run: |
         python3.10 manage.py test
