@@ -1,1 +1,1 @@
-uvicorn settings.asgi:application --host localhost --port 9000 --loop uvloop --reload
+uvicorn settings.asgi:application --host localhost --port 8000 --loop uvloop --reload
