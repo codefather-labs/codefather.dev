@@ -23,13 +23,9 @@ from settings.environment.settings import \
     get_settings_module, environment, Environment
 from settings.utils import schema_view
 
-without_production_admin_patterns = []
-
-match environment:
-    case Environment.LOCAL:
-        without_production_admin_patterns.append(path('admin/', admin.site.urls), )
-
 settings = get_settings_module()
+
+admin_patterns = [path('admin/', admin.site.urls)]
 
 basepatterns = [
     # API URLS
@@ -59,4 +55,6 @@ basepatterns += static(settings.MEDIA_URL,
 basepatterns += static(settings.STATIC_URL,
                        document_root=settings.STATIC_ROOT)
 
-urlpatterns = basepatterns + without_production_admin_patterns
+urlpatterns = basepatterns
+if settings.ADMIN_ROUTER_ENABLED:
+    urlpatterns += admin_patterns

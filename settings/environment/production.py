@@ -10,6 +10,7 @@ DEBUG = bool(int(os.environ.get("DEBUG")))
 HOST = str(os.environ.get("HOST"))
 
 ALLOWED_HOSTS = list(ast.literal_eval(os.environ.get("ALLOWED_HOSTS")))
+ADMIN_ROUTER_ENABLED = bool(int(os.environ.get("ADMIN_ROUTER_ENABLED", "0")))
 
 # Database Settings
 # ------------------------------------------------------------------------------

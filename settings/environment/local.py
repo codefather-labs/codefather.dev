@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     *ROOT_APPS
 ]
 
+ADMIN_ROUTER_ENABLED = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
