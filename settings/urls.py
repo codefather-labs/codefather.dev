@@ -25,8 +25,6 @@ from settings.utils import schema_view
 
 settings = get_settings_module()
 
-admin_patterns = [path('admin/', admin.site.urls)]
-
 urlpatterns = [
     # API URLS
     path('api/v1/', include(('apps.core.api.urls', 'core'), namespace='api-urls')),
@@ -51,9 +49,7 @@ urlpatterns = [
 ]
 
 if settings.ADMIN_ROUTER_ENABLED:
-    urlpatterns += admin_patterns
-else:
-    del admin_patterns
+    urlpatterns += path('admin/', admin.site.urls)
 
 urlpatterns += static(settings.MEDIA_URL,
                       document_root=settings.MEDIA_ROOT)
