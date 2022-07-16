@@ -16,7 +16,7 @@ WHITENOISE_PACKAGE_REQUIRE = bool(int(os.environ.get("WHITENOISE_PACKAGE_REQUIRE
 # Middleware Settings
 # ------------------------------------------------------------------------------
 if WHITENOISE_PACKAGE_REQUIRE:
-    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 # Database Settings
 # ------------------------------------------------------------------------------
@@ -36,6 +36,9 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 if WHITENOISE_PACKAGE_REQUIRE:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+    # with cache
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # CORS Settings
 # ------------------------------------------------------------------------------
