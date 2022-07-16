@@ -37,12 +37,6 @@ DATABASES = {
 if WHITENOISE_PACKAGE_REQUIRE:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
 # CORS Settings
 # ------------------------------------------------------------------------------
 CSRF_TRUSTED_ORIGINS = list(ast.literal_eval(os.environ.get('CSRF_TRUSTED_ORIGINS')))
