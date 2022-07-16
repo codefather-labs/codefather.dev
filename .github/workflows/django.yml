@@ -29,7 +29,4 @@ jobs:
     - name: Run Tests
       run: |
         python3.10 manage.py test
-    - name: Start
-      run: |
-        python3.10 -m uvicorn settings.asgi:application --host localhost --port 8000 --loop uvloop --reload
         
