@@ -6,7 +6,7 @@ from settings.environment.local import *
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(int(os.environ.get("DEBUG")))
 HOST = str(os.environ.get("HOST"))
 
 ALLOWED_HOSTS = list(ast.literal_eval(os.environ.get("ALLOWED_HOSTS")))
