@@ -549,7 +549,7 @@ p iframe {
     color: #999
 }
 
-@media (min-width: 580px) {
+@media {
     .glitch-effect, .glitch-effect-white {
         position: relative
     }
@@ -3405,7 +3405,7 @@ button:hover {
     border-bottom-color: #f26b38;
 }
 
-@media (min-width: 580px) {
+@media {
     .glitch-effect-white:before,
     .glitch-effect-white:after {
         background: #f26b38;
