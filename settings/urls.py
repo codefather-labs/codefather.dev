@@ -58,3 +58,5 @@ basepatterns += static(settings.STATIC_URL,
 urlpatterns = basepatterns
 if settings.ADMIN_ROUTER_ENABLED:
     urlpatterns += admin_patterns
+else:
+    del admin_patterns
