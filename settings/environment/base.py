@@ -19,6 +19,7 @@ from django.contrib.staticfiles.utils import check_settings as check_django_sett
 from corsheaders.checks import check_settings as check_cors_settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+WHITENOISE_PACKAGE_REQUIRE = bool(int(os.environ.get("WHITENOISE_PACKAGE_REQUIRE", "0")))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -61,6 +62,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if WHITENOISE_PACKAGE_REQUIRE:
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'settings.urls'
 
@@ -113,6 +117,12 @@ languages = ['en', 'pl', 'ua', 'ja', 'de', 'fr', 'it', 'ja', 'cn', 'ru']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+if WHITENOISE_PACKAGE_REQUIRE:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+    # with cache
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',

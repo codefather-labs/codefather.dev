@@ -11,12 +11,6 @@ DEBUG = bool(int(os.environ.get("DEBUG")))
 HOST = str(os.environ.get("HOST"))
 ALLOWED_HOSTS = list(ast.literal_eval(os.environ.get("ALLOWED_HOSTS")))
 ADMIN_ROUTER_ENABLED = bool(int(os.environ.get("ADMIN_ROUTER_ENABLED", "0")))
-WHITENOISE_PACKAGE_REQUIRE = bool(int(os.environ.get("WHITENOISE_PACKAGE_REQUIRE", "0")))
-
-# Middleware Settings
-# ------------------------------------------------------------------------------
-if WHITENOISE_PACKAGE_REQUIRE:
-    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 # Database Settings
 # ------------------------------------------------------------------------------
@@ -31,14 +25,6 @@ DATABASES = {
         'ATOMIC_REQUESTS': True
     },
 }
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-if WHITENOISE_PACKAGE_REQUIRE:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
-    # with cache
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # CORS Settings
 # ------------------------------------------------------------------------------
