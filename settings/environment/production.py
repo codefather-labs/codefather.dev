@@ -26,6 +26,11 @@ DATABASES = {
     },
 }
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+
 # CORS Settings
 # ------------------------------------------------------------------------------
 CSRF_TRUSTED_ORIGINS = list(ast.literal_eval(os.environ.get('CSRF_TRUSTED_ORIGINS')))
