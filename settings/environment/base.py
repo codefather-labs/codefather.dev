@@ -64,7 +64,7 @@ MIDDLEWARE = [
 ]
 
 if WHITENOISE_PACKAGE_REQUIRE:
-    MIDDLEWARE += 'whitenoise.middleware.WhiteNoiseMiddleware'
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'settings.urls'
 
