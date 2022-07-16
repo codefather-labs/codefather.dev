@@ -1,5 +1,7 @@
 import ast
 
+import dj_database_url
+
 from settings.environment.local import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -10,11 +12,14 @@ DEBUG = False
 HOST = str(os.environ.get("HOST"))
 
 ALLOWED_HOSTS = list(ast.literal_eval(os.environ.get("ALLOWED_HOSTS")))
+
+# Database Settings
+# ------------------------------------------------------------------------------
+db_config = dj_database_url.config("DATABASE_URL")
+db_config['ATOMIC_REQUESTS'] = True
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': db_config,
 }
 
 # CORS Settings
