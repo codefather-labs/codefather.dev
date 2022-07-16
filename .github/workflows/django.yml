@@ -13,24 +13,27 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ['3.10.5']
+        python-version: [ '3.10.5' ]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10.5
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10.5'
-        architecture: 'x64'
-    - name: Install Dependencies
-      run: |
-        python3.10 -m pip install --upgrade pip
-        python3.10 -m pip install -r requirements.txt
-    - name: Migrations
-      run: |
-        python3.10 manage.py makemigrations
-        python3.10 manage.py migrate
-    - name: Run Tests
-      run: |
-        python3.10 manage.py test
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10.5
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.5'
+          architecture: 'x64'
+      - name: Install Dependencies
+        run: |
+          python3.10 -m pip install --upgrade pip
+          python3.10 -m pip install -r requirements.txt
+      - name: Migrations
+        run: |
+          python3.10 manage.py makemigrations
+          python3.10 manage.py migrate
+      - name: Run Tests
+        run: |
+          python3.10 manage.py test
+      - name: Collect static
+        run: |
+          python3.10 manage.py collectstatic --noinput
         

@@ -13,19 +13,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('settings.urls'))
 """
+import os
 
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 
-from settings.environment.settings import get_settings_module
+from settings.environment.settings import \
+    get_settings_module, environment, Environment
 from settings.utils import schema_view
+
+without_production_admin_patterns = []
+
+match environment:
+    case Environment.LOCAL:
+        without_production_admin_patterns.append(path('admin/', admin.site.urls), )
 
 settings = get_settings_module()
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-
+basepatterns = [
     # API URLS
     path('api/v1/', include(('apps.core.api.urls', 'core'), namespace='api-urls')),
 
@@ -40,7 +46,7 @@ urlpatterns = [
 
     # Editor urls
     path('editor/', include(('apps.editor.urls', 'editor'), namespace='editor-urls')),
-    
+
     # mdeditor urls
     path('mdeditor/', include('mdeditor.urls')),
 
@@ -48,7 +54,9 @@ urlpatterns = [
     path('djrichtextfield/', include('djrichtextfield.urls'))
 ]
 
-urlpatterns += static(settings.MEDIA_URL,
-                      document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL,
-                      document_root=settings.STATIC_ROOT)
+basepatterns += static(settings.MEDIA_URL,
+                       document_root=settings.MEDIA_ROOT)
+basepatterns += static(settings.STATIC_URL,
+                       document_root=settings.STATIC_ROOT)
+
+urlpatterns = basepatterns + without_production_admin_patterns

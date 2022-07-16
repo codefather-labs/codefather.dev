@@ -1,1 +1,1 @@
-web: sh local_start.sh
+web: sh production_start.sh
