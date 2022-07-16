@@ -16,7 +16,7 @@ WHITENOISE_PACKAGE_REQUIRE = bool(int(os.environ.get("WHITENOISE_PACKAGE_REQUIRE
 # Middleware Settings
 # ------------------------------------------------------------------------------
 if WHITENOISE_PACKAGE_REQUIRE:
-    MIDDLEWARE += "whitenoise.middleware.WhiteNoiseMiddleware"
+    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 
 # Database Settings
 # ------------------------------------------------------------------------------
