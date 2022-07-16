@@ -1,1 +1,1 @@
-web: uvicorn settings.asgi:application --loop uvloop --reload
+web: sh local_start.sh
