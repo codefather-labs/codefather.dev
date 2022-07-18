@@ -2,10 +2,14 @@ import base64
 import os
 import re
 from enum import Enum
+from typing import List, Union
 from urllib.parse import urlparse, ParseResult
 
+from django.utils.text import slugify
 from mistletoe import HTMLRenderer, Document
 from drf_yasg import openapi
+from mistletoe.block_token import Heading
+from mistletoe.span_token import RawText, Link, Strong, EscapeSequence
 
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
@@ -40,6 +44,15 @@ class PygmentsRenderer(HTMLRenderer):
         super().__init__(*extras)
         self.post_dir_path = post_dir_path
         self.formatter.style = get_style(style)
+
+    def render_heading(self, token: Heading):
+        children: List[Union[RawText, Link, Strong, EscapeSequence]] = \
+            token.children
+
+        template = '<h{level} id={id}>{inner}</h{level}>'
+        inner = ''.join(map(self.render, token.children))
+        slug = slugify(inner, allow_unicode=True)
+        return template.format(level=token.level, id=slug, inner=inner)
 
     def render_paragraph(self, token):
         if self._suppress_ptag_stack[-1]:
