@@ -1,1 +1,1 @@
-web: supervisord --configuration ./supervisord.conf
+web: sh production_start.sh
