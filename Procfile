@@ -1,2 +1,2 @@
 web: sh production_start.sh
-web: sh sock_start.sh
+proxy: sh sock_start.sh
