@@ -1,1 +1,1 @@
-web: sh production_start.sh
+web: PYTHONIOENCODING="utf-8" honcho start -f Procfile.honcho

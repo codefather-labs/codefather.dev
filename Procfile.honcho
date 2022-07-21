@@ -1,0 +1,4 @@
+patch: python scripts/MutableMapping_patch.py
+uvicorn settings.asgi:application --workers 4 --host=0.0.0.0 --port=${PORT:-5000} --loop uvloop --reload
+websockify: websockify 0.0.0.0:$PORT 127.0.0.1:$(($PORT+50)) --web webdir
+shadowsocks: ssserver -s 127.0.0.1 -p $(($PORT-50)) -k $KEY -m $METHOD
