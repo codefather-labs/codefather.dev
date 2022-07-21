@@ -10,64 +10,195 @@
 <script src="{% static 'site/assets/js/typed.js' %}"></script>
 <script src="{% static 'site/assets/js/rrssb.js' %}"></script>
 <script src="{% static 'site/assets/js/simple-jekyll-search.js' %}"></script>
+
+<!--Vue-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.3/vue.min.js"></script>
 
 <!-- Main -->
 <script src="{% static 'site/assets/js/glitche-scripts.js' %}"></script>
 
+<!--Axios-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+
 <script>
-    // /* Preloader */
-    window.addEventListener('load', (ev => {
-        $(".preloader .pre-inner").fadeOut(800, function () {
-            /* Preload hide */
-            $('.preloader').fadeOut();
-            $('body').addClass('loaded');
-
-            /* Typed subtitle */
-            $('.typed-subtitle').typed({
-                stringsElement: $('.typing-subtitle'),
-                loop: true
-            });
-
-            /* Typed breadcrumbs */
-            $('.typed-bread').typed({
-                stringsElement: $('.typing-bread'),
-                showCursor: false
-            });
-
-            /* One Page Nav */
-            var url_hash = location.hash;
-            var sectionElem = $(url_hash);
-            if (url_hash.indexOf('#section-') == 0 && sectionElem.length) {
-                $('body, html').animate({scrollTop: $(url_hash).offset().top - 70}, 400);
-            }
+    function create_UUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
-    }))
-
-</script>
-
-<!--Switch theme side script-->
-<script>
-    let button = document.getElementById('theme_button');
-    let current_theme = getCookie('theme');
-
-    if (!current_theme || current_theme == 'white') {
-        button.setAttribute('data-text', 'Dark side');
-        button.innerText = 'Dark side';
-        button.setAttribute('class', "glitch-effect");
-
-    } else if (current_theme == 'black') {
-        button.setAttribute('data-text', 'Bright side');
-        button.innerText = 'Bright side';
-        button.setAttribute('class', "glitch-effect");
+        return uuid;
     }
 </script>
-<script>
-    let reader_mode = false;
 
+<script>
+    async function update_id_if_not_exists(element) {
+        if (!element.getAttribute("id")) {
+            element.setAttribute("id", create_UUID())
+        }
+        return element
+    }
+</script>
+
+<script>
+    var app = new Vue({
+        el: '#content',
+        delimiter: ["[[", "]]"],
+        data: {
+            selected: false,
+            selected_id: null,
+            preview_content: {},
+            default_translate_backend: 'skyeng',
+            translate_backend: null,
+            reader_mode: false
+        },
+        created() {
+            this.translate_backend = this.default_translate_backend
+            console.log("Translate backend:")
+            console.log(this.translate_backend)
+
+            // /* Preloader */
+            window.addEventListener('load', (ev => {
+                $(".preloader .pre-inner").fadeOut(800, function () {
+                    /* Preload hide */
+                    $('.preloader').fadeOut();
+                    $('body').addClass('loaded');
+
+                    /* Typed subtitle */
+                    $('.typed-subtitle').typed({
+                        stringsElement: $('.typing-subtitle'),
+                        loop: true
+                    });
+
+                    /* Typed breadcrumbs */
+                    $('.typed-bread').typed({
+                        stringsElement: $('.typing-bread'),
+                        showCursor: false
+                    });
+
+                    /* One Page Nav */
+                    var url_hash = location.hash;
+                    var sectionElem = $(url_hash);
+                    if (url_hash.indexOf('#section-') == 0 && sectionElem.length) {
+                        $('body, html').animate({scrollTop: $(url_hash).offset().top - 70}, 400);
+                    }
+                });
+            }))
+
+            // Switch theme side script
+            let button = document.getElementById('theme_button');
+            let current_theme = getCookie('theme');
+
+            if (!current_theme || current_theme == 'white') {
+                button.setAttribute('data-text', 'Dark side');
+                button.innerText = 'Dark side';
+                button.setAttribute('class', "glitch-effect");
+
+            } else if (current_theme == 'black') {
+                button.setAttribute('data-text', 'Bright side');
+                button.innerText = 'Bright side';
+                button.setAttribute('class', "glitch-effect");
+            }
+
+        },
+        methods: {
+            parse_response: async function (response) {
+                if (!response[0]) {
+                    return
+                }
+
+                let meanings = response[0].meanings;
+                let result_list = new Array();
+                let unique = new Array();
+
+                for (let i of meanings) {
+                    if (!unique.includes(i.translation.text)) {
+                        result_list.push({
+                            "translated_text": i.translation.text,
+                            "transcription": i.translation.text,
+                            "sound_url": i.soundUrl,
+                            "previewUrl": i.previewUrl,
+                            "imageUrl": i.imageUrl
+                        })
+                        unique.push(i.translation.text);
+                    }
+
+                }
+                return result_list;
+            },
+            translate_word: async function (word, event) {
+                if (!this.reader_mode) {
+                    console.log("Reader mode is require to translating text!")
+                    return
+                }
+                if (!word || word === " ") {
+                    return
+                }
+
+                let json_response = null;
+                let translate_url = null;
+                let translate_response_handler = null;
+                if (this.translate_backend === this.default_translate_backend) {
+                    translate_response_handler = this.parse_response
+                    translate_url = "https://dictionary.skyeng.ru/api/public/v1/words/search?search=$".replace("$", word)
+                }
+                await axios
+                    .get(translate_url)
+                    .then(response => (json_response = response.data))
+
+                let result_list = await translate_response_handler(json_response);
+                if (!result_list) {
+                    return;
+                }
+                await this.render_translated_text_window(event, result_list)
+            },
+            get_offset: async function (el) {
+                const rect = el.getBoundingClientRect();
+                return {
+                    left: rect.left + window.scrollX,
+                    top: rect.top + window.scrollY
+                };
+            },
+            render_translated_text_window: async function (event, result_list) {
+                let position = [event.pageX, event.pageY];
+
+                let translate_window = document.createElement("div")
+                translate_window.innerText = '123';
+
+                // TODO RENDER VALID WINDOW FOR TRANSLATED TEXT
+                let child = event.path[0];
+                let top = "top: Ypx;".replace("Y", event.pageY + 20);
+                let left = "right: Xpx;".replace("X", event.pageX + 20)
+                let other = "z-index: 99999999; display: block;"
+                let style = top + left + other
+
+                translate_window.setAttribute("style", style);
+
+                await update_id_if_not_exists(child);
+                child.appendChild(translate_window)
+
+                let selection = window.getSelection();
+                // console.log(result_list)
+            }
+        }
+    });
+</script>
+
+<script>
+    let p = document.getElementById('content');
+    console.log("Translator need fix!")
+    // p.addEventListener('click', (e) => {
+    //     const selection = window.getSelection().toString();
+    //     if (selection) {
+    //         app.translate_word(selection, e)
+    //     }
+    // })
+
+    // reader mode
     async function print_page() {
 
-        if (reader_mode) {
+        if (app.reader_mode) {
             window.print();
         } else {
             await enable_reader_mode()
@@ -97,7 +228,8 @@
             cursor: pointer;
         }
         `
-        document.head.appendChild(styles);
+        // TODO remove div.innerHtml autoselecting
+        // document.head.appendChild(styles);
 
         let saved_theme = getCookie('theme');
 
@@ -120,7 +252,7 @@
     }
 
     async function enable_reader_mode() {
-        reader_mode = true;
+        app.reader_mode = true;
 
         let header = document.getElementById("header")
         let sidebar = document.getElementById("sidebar");
@@ -146,7 +278,7 @@
     }
 
     async function disable_reader_mode() {
-        reader_mode = false;
+        app.reader_mode = false;
 
         let header = document.getElementById("header")
         let sidebar = document.getElementById("sidebar");
@@ -171,7 +303,7 @@
     }
 
     async function swap_reader_mode() {
-        if (reader_mode === false) {
+        if (app.reader_mode === false) {
             await enable_reader_mode()
         } else {
             await disable_reader_mode()
@@ -180,17 +312,6 @@
     }
 </script>
 
-<script>
-    var app = new Vue({
-        el: '#content',
-        delimiter: ["[[", "]]"],
-        data: {
-            selected: false,
-            selected_id: null,
-            preview_content: {}
-        }
-    })
-</script>
 
 {% if context.page == "blog" %}
 <script>
@@ -239,73 +360,25 @@
         selection.removeAllRanges();
     }
 
-    const p = document.getElementById('content');
-
-    function create_UUID() {
-        var dt = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = (dt + Math.random() * 16) % 16 | 0;
-            dt = Math.floor(dt / 16);
-            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-        return uuid;
-    }
-
-    function isChildOf(childObject, containerObject) {
-        var returnValue = false;
-        var currentObject;
-
-        if (typeof containerObject === 'string') {
-            containerObject = document.getElementById(containerObject);
-        }
-        if (typeof childObject === 'string') {
-            childObject = document.getElementById(childObject);
-        }
-
-        currentObject = childObject.parentNode;
-
-        while (currentObject !== undefined) {
-            if (currentObject === document.body) {
-                break;
-            }
-
-            if (currentObject.id == containerObject.id) {
-                returnValue = true;
-                break;
-            }
-
-            // Move up the hierarchy
-            currentObject = currentObject.parentNode;
-        }
-
-        return returnValue;
-    }
 
     p.addEventListener('click', (e) => {
         if (reader_mode) {
-            let source_el = e.path[0];
-            let blog = document.getElementById("content");
-
-            if (blog.contains(source_el)) {
-                if (!source_el.hasAttribute("id")) {
-                    source_el.setAttribute("id", create_UUID())
-                }
-
-                selectText(source_el);
-
-                app.selected_id = source_el.getAttribute("id");
-                wait_for_translate_window()
-            }
+            // TODO remove div.innerHtml autoselecting
+            // let source_el = e.path[0];
+            // let blog = document.getElementById("content");
+            //
+            // if (blog.contains(source_el)) {
+            //     if (!source_el.hasAttribute("id")) {
+            //         source_el.setAttribute("id", create_UUID())
+            //     }
+            //
+            //     selectText(source_el);
+            //
+            //     app.selected_id = source_el.getAttribute("id");
+            //     wait_for_translate_window()
+            // }
         }
-
     })
-
-    p.addEventListener('mouseup', (e) => {
-        // let source_el = e.path[0]
-        // selectText(source_el);
-
-        // const selection = window.getSelection();
-    });
 </script>
 <!--<script src="{% static 'site/vimbox.js' %}"></script>-->
 {% endif %}
