@@ -1,3 +1,5 @@
+
+asyncio-socks-server==0.3.0
 Cython==0.29.28
 Django==4.0.5
 django_ckeditor==6.4.2
@@ -20,8 +22,3 @@ supervisor==4.2.4
 uvicorn==0.17.6
 uvloop==0.16.0
 whitenoise==6.2.0
-
-honcho==1.1.0
-numpy==1.23.1
-shadowsocks==2.8.2
-websockify==0.10.0

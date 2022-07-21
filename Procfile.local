@@ -1,1 +1,2 @@
 web: sh local_start.sh
+socks_server: asyncio_socks_server --env-prefix SOCKS_

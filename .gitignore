@@ -144,3 +144,4 @@ heroku_log.sh
 *.log
 *.log.*
 *.pid
+socks_config.json
