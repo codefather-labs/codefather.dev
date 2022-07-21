@@ -8,8 +8,6 @@
 import os
 import socket
 import select
-import threading
-from _thread import start_new_thread
 from struct import pack, unpack
 # System
 import traceback
@@ -18,7 +16,6 @@ from signal import signal, SIGINT, SIGTERM
 from time import sleep
 import sys
 import time
-import supervisor
 
 #
 # Configuration
