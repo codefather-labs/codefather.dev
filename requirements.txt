@@ -15,6 +15,7 @@ psycopg2==2.9.3
 Pygments==2.3.1
 PyMuPDF==1.19.5
 PyPDF2==1.26.0
+supervisor==4.2.4
 uvicorn==0.17.6
 uvloop==0.16.0
 whitenoise==6.2.0

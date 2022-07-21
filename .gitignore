@@ -141,3 +141,6 @@ media/
 post/*
 .DS_Store
 heroku_log.sh
+*.log
+*.log.*
+*.pid
