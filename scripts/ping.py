@@ -8,4 +8,5 @@ while True:
         requests.get('https://codefather.dev')
     except Exception:
         pass
+    print(1)
     time.sleep(TEN_MINUTES)

@@ -51,4 +51,3 @@ create_post:
 
 parse_md:
 	python3 scripts/mdtohtml/main.py "/Users/$(USER)/PycharmProjects/codefather.dev/scripts/mdtohtml" "/Users/$(USER)/PycharmProjects/codefather.dev/templates/site/test_article.html"
-

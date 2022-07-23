@@ -15,6 +15,9 @@ class BaseModel(mixins.AutoincrementIDMixin,
 
 
 class Tag(BaseModel):
+    class Meta:
+        abstract = False
+
     name = models.CharField(
         max_length=255,
         default=None,
@@ -26,6 +29,9 @@ class Tag(BaseModel):
 
 
 class Category(BaseModel):
+    class Meta:
+        abstract = False
+
     name = models.CharField(
         max_length=255,
         default=None,
@@ -37,6 +43,9 @@ class Category(BaseModel):
 
 
 class Post(BaseModel):
+    class Meta:
+        abstract = False
+
     DEFAULT_LANGUAGE = 'en'
     language = models.CharField(
         max_length=255,

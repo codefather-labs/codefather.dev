@@ -19,6 +19,14 @@ from django.contrib.staticfiles.utils import check_settings as check_django_sett
 from corsheaders.checks import check_settings as check_cors_settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+SITE_ID = 1
+
+# A dictionary of urlconf module paths, keyed by their subdomain.
+SUBDOMAIN_URLCONFS = {
+    None: 'settings.urls',  # no subdomain, e.g. ``example.com``
+    'www': 'settings.urls',
+    'marketplace': 'apps.marketplace.urls',
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -27,7 +35,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PRE_ADMIN_APPS = []
 ROOT_APPS = [
     'apps.core',
-    'apps.editor'
+    'apps.editor',
+    'apps.market'
 ]
 INSTALLED_APPS = [
     'corsheaders',
@@ -35,7 +44,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'mdeditor',
     'ckeditor',
-    'djrichtextfield'
+    'djrichtextfield',
+    # 'subdomains'
 ]
 
 INSTALLED_APPS = [
@@ -54,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    # 'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsPostCsrfMiddleware',

@@ -9,14 +9,14 @@ class DefaultManagerMixin:
 
     objects = models.Manager()
 
-    class Meta:
-        abstract = True
 
-
-class AutoincrementIDMixin:
+class AutoincrementIDMixin(models.Model):
     id = models.PositiveBigIntegerField(
         primary_key=True, null=False, blank=False, db_index=True
     )
+
+    class Meta:
+        abstract = True
 
 
 class UUIDMixin(models.Model):

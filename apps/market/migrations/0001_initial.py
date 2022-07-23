@@ -3,9 +3,6 @@
 import apps.core.mixins
 import django.core.validators
 from django.db import migrations, models
-import django.db.models.deletion
-import djrichtextfield.models
-import mdeditor.fields
 import uuid
 
 
@@ -18,13 +15,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name='Order',
             fields=[
                 ('id', models.PositiveBigIntegerField(db_index=True, primary_key=True, serialize=False)),
                 ('uuid', models.UUIDField(db_index=True, default=uuid.uuid4, unique=True, validators=[django.core.validators.RegexValidator('^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$')])),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('name', models.CharField(default=None, max_length=255, null=True)),
             ],
             options={
                 'abstract': False,
@@ -32,13 +28,14 @@ class Migration(migrations.Migration):
             bases=(models.Model, apps.core.mixins.DefaultManagerMixin),
         ),
         migrations.CreateModel(
-            name='Tag',
+            name='Product',
             fields=[
                 ('id', models.PositiveBigIntegerField(db_index=True, primary_key=True, serialize=False)),
                 ('uuid', models.UUIDField(db_index=True, default=uuid.uuid4, unique=True, validators=[django.core.validators.RegexValidator('^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$')])),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('name', models.CharField(default=None, max_length=255, null=True)),
+                ('name', models.CharField(default='', max_length=255)),
+                ('slug', models.SlugField(allow_unicode=True, default='', max_length=255)),
             ],
             options={
                 'abstract': False,
@@ -46,23 +43,13 @@ class Migration(migrations.Migration):
             bases=(models.Model, apps.core.mixins.DefaultManagerMixin),
         ),
         migrations.CreateModel(
-            name='Post',
+            name='Seller',
             fields=[
                 ('id', models.PositiveBigIntegerField(db_index=True, primary_key=True, serialize=False)),
                 ('uuid', models.UUIDField(db_index=True, default=uuid.uuid4, unique=True, validators=[django.core.validators.RegexValidator('^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$')])),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('language', models.CharField(blank=True, default='ru', max_length=255, null=True)),
-                ('title', models.CharField(blank=True, db_index=True, default=None, max_length=255, null=True)),
-                ('slug', models.SlugField(allow_unicode=True, blank=True, default=None, max_length=255, null=True)),
-                ('markdown', mdeditor.fields.MDTextField(blank=True, default=None, help_text='Markdown представление', null=True)),
-                ('body', djrichtextfield.models.RichTextField(blank=True, default=None, help_text='HTML представление', null=True)),
-                ('author', models.CharField(blank=True, default=None, max_length=255, null=True)),
-                ('author_contact', models.CharField(blank=True, default=None, max_length=255, null=True)),
-                ('is_comments_available', models.BooleanField(blank=True, default=True, null=True)),
-                ('is_already_formatted', models.BooleanField(blank=True, default=False, null=True)),
-                ('category', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.category')),
-                ('tags', models.ManyToManyField(blank=True, default=None, to='core.tag')),
+                ('name', models.CharField(default='', max_length=255)),
             ],
             options={
                 'abstract': False,

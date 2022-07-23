@@ -1,5 +1,6 @@
 from settings.environment.base import *
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-foez$+0ren1#btn$8ay!mzoybqti$^n72-a!z4@4u%#ij6n88c'
 

@@ -1,4 +1,3 @@
-from django.contrib.sitemaps import Sitemap
 from drf_yasg import openapi
 from drf_yasg.generators import OpenAPISchemaGenerator
 from drf_yasg.views import get_schema_view

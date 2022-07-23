@@ -1,13 +1,13 @@
 from django.db import models
 from mdeditor.fields import MDTextField
 
-from apps.core import mixins
+from apps.core.models import BaseModel
 
 
-class EditedPostView(mixins.AutoincrementIDMixin,
-                     mixins.UUIDMixin,
-                     mixins.TimestampMixin,
-                     mixins.DefaultManagerMixin):
+class EditedPostView(BaseModel):
+    class Meta:
+        abstract = False
+
     language = models.CharField(
         max_length=255,
         default='ru',
@@ -46,9 +46,6 @@ class EditedPostView(mixins.AutoincrementIDMixin,
         null=True,
         blank=True
     )
-
-    # class Meta:
-    #     constraints = ()
 
     def __str__(self):
         return "%s, %s" % (self.language, self.title)
