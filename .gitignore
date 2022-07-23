@@ -146,3 +146,5 @@ heroku_log.sh
 *.pid
 socks_config.json
 db.sqlite3
+scripts/drop_prod_db.sh
+scripts/drop.sql
