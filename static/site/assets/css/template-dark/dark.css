@@ -123,7 +123,7 @@
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
-    font-family: "Exo 2";
+    font-family: "Roboto Mono";
     margin: 0;
     margin-bottom: 30px;
     color: #141414
@@ -231,7 +231,7 @@ a.btn:hover, .btn:hover {
 input, textarea, button {
     display: block;
     background: none;
-    font-family: "Exo 2";
+    font-family: "Roboto Mono";
     font-size: 12px;
     height: 60px;
     width: 100%;
@@ -281,7 +281,7 @@ button:hover {
 label, legend {
     display: block;
     padding-bottom: 10px;
-    font-family: "Exo 2";
+    font-family: "Roboto Mono";
     font-size: 13px
 }
 
@@ -1323,7 +1323,7 @@ header .head-top .top-menu ul li.active .btn {
 
 .section.started .started-content .h-title {
     font-size: 68px;
-    font-family: "Exo 2";
+    font-family: "Roboto Mono";
     color: #141414;
     font-weight: 700;
     text-transform: uppercase;

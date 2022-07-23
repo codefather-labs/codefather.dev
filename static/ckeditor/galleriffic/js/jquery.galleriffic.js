@@ -77,7 +77,7 @@
 		ssControlsContainerSel:    '',
 		navControlsContainerSel:   '',
 		loadingContainerSel:       '',
-		playLinkText:              'Exo 2',
+		playLinkText:              'Roboto Mono',
 		pauseLinkText:             'Pause',
 		prevLinkText:              'Previous',
 		nextLinkText:              'Next',
