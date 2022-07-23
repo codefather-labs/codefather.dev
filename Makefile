@@ -4,6 +4,9 @@ wait:
 delete_migrations:
 	find . -path "*/migrations/*.py" -not -path "*/site-packages/*" -not -path "*/migrations/__init__.py" -delete
 
+truncate_db:
+	python3 manage.py sqlflush | python3 manage.py dbshell
+
 dump_fixtures:
 	python3 manage.py dumpdata > fixtures.json
 
