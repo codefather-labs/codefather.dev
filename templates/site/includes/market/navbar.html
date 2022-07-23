@@ -1,0 +1,15 @@
+<header id="header">
+    <div class="head-top">
+        <a href="#" class="menu-btn"><span></span></a>
+        <div class="top-menu">
+            <ul>
+                <li>
+                    <a href="{% url 'core-urls:main_url' %}" class="lnk">Home</a>
+                </li>
+                <li class="{% if context.page == 'Basket' %}active{% endif %}">
+                    <a href="" class="btn">Basket</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

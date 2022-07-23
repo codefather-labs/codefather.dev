@@ -127,3 +127,18 @@ def generate_api_response(
             'details': details_schema if details_schema \
                 else openapi.Schema(type=openapi.TYPE_OBJECT)
         })
+
+
+def create_context(page_name: str, data=None):
+    from apps.core.models import Post
+    result = {
+        "context": {
+            "page": page_name,
+
+        },
+        "latest_posts": Post.objects.order_by('-created_at')[:10]
+    }
+    if data:
+        result['context'].update(**data)
+
+    return result

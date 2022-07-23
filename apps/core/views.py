@@ -6,16 +6,8 @@ from django.shortcuts import render
 from rest_framework.request import Request
 
 from apps.core.models import Post, Tag
+from apps.core.utils import create_context
 from settings.logger import system_message
-
-
-def create_context(page_name: str):
-    return {
-        "context": {
-            "page": page_name
-        },
-        "latest_posts": Post.objects.order_by('-created_at')[:10]
-    }
 
 
 def main(request: Request):
