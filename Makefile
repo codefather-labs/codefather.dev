@@ -13,7 +13,7 @@ dump_fixtures:
 local_dump_common_fixtures:
 	python3 manage.py dumpdata --exclude admin.logentry --exclude auth.permission --exclude contenttypes.contenttype --exclude sessions.session > fixtures/common.json
 
-load_common_fixtures:
+local_load_common_fixtures:
 	python3 manage.py loaddata fixtures/common.json
 
 load_fixtures:
@@ -54,3 +54,7 @@ create_post:
 
 parse_md:
 	python3 scripts/mdtohtml/main.py "/Users/$(USER)/PycharmProjects/codefather.dev/scripts/mdtohtml" "/Users/$(USER)/PycharmProjects/codefather.dev/templates/site/test_article.html"
+
+reinstall_subdomains:
+	pip3 uninstall django-subdomains
+	pip3 install git+https://github.com/codefather-labs/django-subdomains.git

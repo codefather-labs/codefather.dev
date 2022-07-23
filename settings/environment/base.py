@@ -25,7 +25,7 @@ SITE_ID = 1
 SUBDOMAIN_URLCONFS = {
     None: 'settings.urls',  # no subdomain, e.g. ``example.com``
     'www': 'settings.urls',
-    'marketplace': 'apps.marketplace.urls',
+    'market': 'apps.market.urls',
 }
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +36,7 @@ PRE_ADMIN_APPS = []
 ROOT_APPS = [
     'apps.core',
     'apps.editor',
-    'apps.market'
+    'apps.market',
 ]
 INSTALLED_APPS = [
     'corsheaders',
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'mdeditor',
     'ckeditor',
     'djrichtextfield',
-    # 'subdomains'
+    'subdomains'
 ]
 
 INSTALLED_APPS = [
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     *INSTALLED_APPS,
     *ROOT_APPS
 ]
@@ -64,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    # 'subdomains.middleware.SubdomainURLRoutingMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsPostCsrfMiddleware',
