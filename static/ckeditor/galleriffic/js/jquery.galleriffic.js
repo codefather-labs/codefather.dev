@@ -77,7 +77,7 @@
 		ssControlsContainerSel:    '',
 		navControlsContainerSel:   '',
 		loadingContainerSel:       '',
-		playLinkText:              'Play',
+		playLinkText:              'Exo 2',
 		pauseLinkText:             'Pause',
 		prevLinkText:              'Previous',
 		nextLinkText:              'Next',
