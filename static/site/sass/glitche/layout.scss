@@ -203,7 +203,7 @@ header {
 
 		.h-title {
 			font-size: $title-size;
-			font-family: $default-font;
+			font-family: $exo2-font;
 			color: $dark-color;
 			font-weight: 700;
 			text-transform: uppercase;
@@ -237,6 +237,7 @@ header {
 
 		.h-subtitle {
 			font-size: $default-size;
+			font-family: $exo2-font;
 		}
 		
 		.typed-subtitle, .typed-bread {
