@@ -173,7 +173,7 @@
 
         }
 
-        function set_theme(theme) {
+        function set_theme_wrapper(theme) {
             if (theme === 'black') {
                 set_black_theme()
             } else if (theme === 'white') {
@@ -183,7 +183,7 @@
 
         function set_default_theme() {
             let default_theme = "{{theme}}";
-            set_theme(default_theme)
+            set_theme_wrapper(default_theme)
         }
 
 
@@ -193,7 +193,7 @@
             if (!saved_theme) {
                 set_default_theme()
             }
-            set_theme(saved_theme)
+            set_theme_wrapper(saved_theme)
         }
 
         load_theme()
