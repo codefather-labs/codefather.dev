@@ -16,6 +16,7 @@ from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name as get_lexer, guess_lexer
 from pygments.styles import get_style_by_name as get_style
 
+from settings.environment.base import DEFAULT_FRONTEND_THEME
 from settings.environment.settings import get_settings_module
 from apps.core.api.models import base_api_response
 
@@ -136,7 +137,8 @@ def create_context(page_name: str, data=None):
             "page": page_name,
 
         },
-        "latest_posts": Post.objects.order_by('-created_at')[:10]
+        "latest_posts": Post.objects.order_by('-created_at')[:10],
+        "theme": DEFAULT_FRONTEND_THEME
     }
     if data:
         result['context'].update(**data)

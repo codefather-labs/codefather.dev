@@ -232,3 +232,5 @@ CORS_ALLOW_HEADERS = [
     "Access-Control-Max-Age",
     "Access-Control-Allow-Headers",
 ]
+
+DEFAULT_FRONTEND_THEME = os.environ.get('DEFAULT_FRONTEND_THEME', 'black')
