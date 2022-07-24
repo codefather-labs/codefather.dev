@@ -163,9 +163,9 @@
 
             // await timer(500);
 
-            if (!saved_theme || saved_theme === 'white') {
+            if (!saved_theme || saved_theme == 'white') {
                 setCookie('theme', 'black')
-            } else if (saved_theme === 'black') {
+            } else if (saved_theme == 'black') {
                 setCookie('theme', 'white')
             }
 
@@ -173,27 +173,14 @@
 
         }
 
-        function set_theme_wrapper(theme) {
-            if (theme === 'black') {
-                set_black_theme()
-            } else if (theme === 'white') {
-                set_white_theme()
-            }
-        }
-
-        function set_default_theme() {
-            let default_theme = "{{theme}}";
-            set_theme_wrapper(default_theme)
-        }
-
-
         function load_theme() {
             let saved_theme = getCookie('theme');
 
-            if (!saved_theme) {
-                set_default_theme()
+            if (!saved_theme || saved_theme == 'white') {
+                set_white_theme()
+            } else if (saved_theme == 'black') {
+                set_black_theme()
             }
-            set_theme_wrapper(saved_theme)
         }
 
         load_theme()
