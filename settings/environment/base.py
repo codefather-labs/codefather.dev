@@ -25,7 +25,7 @@ SITE_ID = 1
 SUBDOMAIN_URLCONFS = {
     None: 'settings.urls',  # no subdomain, e.g. ``example.com``
     'www': 'settings.urls',
-    'market': 'apps.market.urls',
+    # 'market': 'apps.market.urls',
 }
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +36,7 @@ PRE_ADMIN_APPS = []
 ROOT_APPS = [
     'apps.core',
     'apps.editor',
-    'apps.market',
+    # 'apps.market',
 ]
 INSTALLED_APPS = [
     'corsheaders',

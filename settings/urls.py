@@ -32,7 +32,7 @@ urlpatterns = [
     path('', include(('apps.core.urls', 'core'), namespace='core-urls')),
 
     # MARKET URLS
-    path('market/', include(('apps.market.urls', 'market'), namespace='market-urls')),
+    # path('market/', include(('apps.market.urls', 'market'), namespace='market-urls')),
 
     # SWAGGER URLS
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
