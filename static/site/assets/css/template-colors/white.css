@@ -565,18 +565,18 @@ p iframe {
     }
 
     .glitch-effect-white:before, .glitch-effect-white:after {
-        background: #f26b38
+        background: red
     }
 
     .glitch-effect:after, .glitch-effect-white:after {
         left: 2px;
-        text-shadow: -1px 0 #f26b38;
+        text-shadow: -1px 0 red;
         animation: glitch-1 2s infinite linear alternate-reverse
     }
 
     .glitch-effect:before, .glitch-effect-white:before {
         left: -2px;
-        text-shadow: 2px 0 #f26b38;
+        text-shadow: 2px 0 red;
         animation: glitch-2 2s infinite linear alternate-reverse
     }
 }
@@ -1707,7 +1707,7 @@ header .head-top .top-menu ul li.active .btn {
 }
 
 .section.works .filters label.glitch-effect {
-    color: #f26b38
+    color: red;
 }
 
 @media (max-width: 580px) {
@@ -3381,12 +3381,12 @@ button:hover {
 
     .glitch-effect:after,
     .glitch-effect-white:after {
-        text-shadow: -1px 0 #386df2;
+        text-shadow: -4px 0 #15c7ef;
     }
 
     .glitch-effect:before,
     .glitch-effect-white:before {
-        text-shadow: 2px 0 #f26b38;
+        text-shadow: 4px 0 #f26b38;
     }
 
 }
