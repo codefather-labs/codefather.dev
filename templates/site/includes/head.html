@@ -165,8 +165,10 @@
 
             if (!saved_theme || saved_theme == 'white') {
                 setCookie('theme', 'black')
+                set_black_theme()
             } else if (saved_theme == 'black') {
                 setCookie('theme', 'white')
+                set_white_theme()
             }
 
             // window.location.reload();
