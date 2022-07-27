@@ -141,12 +141,20 @@
         function set_white_theme() {
             setCookie('theme', 'white')
             set_theme("{% static 'site/assets/css/template-colors/white.css' %}")
+
+            let theme_button = document.getElementById("theme_button");
+            theme_button.innerText = "Dark side"
+            theme_button.setAttribute("data-text", "Dark side")
             return 'white'
         }
 
         function set_black_theme() {
             setCookie('theme', 'black')
             set_theme("{% static 'site/assets/css/template-dark/dark.css' %}")
+
+            let theme_button = document.getElementById("theme_button");
+            theme_button.innerText = "Bright side"
+            theme_button.setAttribute("data-text", "Bright side")
             return 'black'
         }
 
