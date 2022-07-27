@@ -1,17 +1,17 @@
+import sys
 import base64
 import os
 import re
 from enum import Enum
 from typing import List, Union
-from urllib.parse import urlparse, ParseResult
 
 from django.utils.text import slugify
 from mistletoe import HTMLRenderer, Document
 from drf_yasg import openapi
 from mistletoe.block_token import Heading
 from mistletoe.span_token import RawText, Link, Strong, EscapeSequence
-
 from pygments import highlight
+
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name as get_lexer, guess_lexer
 from pygments.styles import get_style_by_name as get_style
@@ -19,6 +19,11 @@ from pygments.styles import get_style_by_name as get_style
 from settings.environment.base import DEFAULT_FRONTEND_THEME
 from settings.environment.settings import get_settings_module
 from apps.core.api.models import base_api_response
+
+if sys.version_info < (3, 4):
+    from mistletoe import _html as html
+else:
+    import html
 
 settings = get_settings_module()
 
@@ -37,8 +42,28 @@ class Themes(Enum):
 base_code_style_theme = Themes.MONOKAI
 
 
+class CustomHTMLFormatter(HtmlFormatter):
+    def _wrap_pre(self, inner):
+        style = []
+        if self.prestyles:
+            style.append(self.prestyles)
+        if self.noclasses:
+            style.append(self._pre_style)
+        style.append("font-size: 16px")
+        style = '; '.join(style)
+
+        if self.filename and self.linenos != 1:
+            yield 0, ('<span class="filename">' + self.filename + '</span>')
+
+        # the empty span here is to keep leading empty lines from being
+        # ignored by HTML parsers
+        yield 0, ('<pre' + (style and ' style="%s"' % style) + '><span></span>')
+        yield from inner
+        yield 0, '</pre>'
+
+
 class PygmentsRenderer(HTMLRenderer):
-    formatter = HtmlFormatter(style=base_code_style_theme.value)
+    formatter = CustomHTMLFormatter(style=base_code_style_theme.value)
     formatter.noclasses = True
 
     def __init__(self, *extras, style=base_code_style_theme.value, post_dir_path=None):
@@ -63,7 +88,9 @@ class PygmentsRenderer(HTMLRenderer):
     def render_block_code(self, token):
         code = token.children[0].content
         lexer = get_lexer(token.language) if token.language else guess_lexer(code)
-        return highlight(code, lexer, self.formatter)
+        "line-height: 125%; font-size: 16px"
+        result = highlight(code, lexer, self.formatter)
+        return result
 
     def render_image(self, token):
         template = '<center><img src="{}" alt="{}"{} /></center>'
