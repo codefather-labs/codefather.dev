@@ -324,8 +324,11 @@
         let resume_subtitle = document
             .getElementById("resume_subtitle");
 
-        resume_subtitle.removeAttribute("hidden");
-
+        resume_subtitle.innerHTML = '<div class="h-subtitle typing-bread">\n' +
+            '                        <p><a href="https://codefather.dev">Home</a> / <a\n' +
+            '                                href="https://codefather.dev/resume/">Resume</a>\n' +
+            '                        </p>\n' +
+            '                    </div>'
     }
 
     async function prepare_resume_page_for_print() {
@@ -336,7 +339,10 @@
         let resume_subtitle = document
             .getElementById("resume_subtitle");
 
-        resume_subtitle.setAttribute("hidden", true)
+        resume_subtitle.innerHTML = '<div class="h-subtitle typing-bread">\n' +
+            '                        <p><a href="https://www.codefather.dev" class="resume-link"><h5>www.codefather.dev</h5></a>' +
+            '                        </p>' +
+            '                    </div>'
     }
 
 
