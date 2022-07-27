@@ -565,19 +565,20 @@ p iframe {
         clip: rect(0, 0, 0, 0)
     }
 
+
     .glitch-effect-white:before, .glitch-effect-white:after {
-        background: red
+        background: #15efc7;
     }
 
     .glitch-effect:after, .glitch-effect-white:after {
         left: 2px;
-        text-shadow: -1px 0 red;
+        text-shadow: -4px 0 #15efc7;
         animation: glitch-1 2s infinite linear alternate-reverse
     }
 
     .glitch-effect:before, .glitch-effect-white:before {
         left: -2px;
-        text-shadow: 2px 0 red;
+        text-shadow: 4px 0 #a51fff;
         animation: glitch-2 2s infinite linear alternate-reverse
     }
 }
@@ -3593,7 +3594,7 @@ header .logo a {
 
     .glitch-effect:before,
     .glitch-effect-white:before {
-        text-shadow: 6px 0 #7312b4;
+        text-shadow: 6px 0 #a51fff;
     }
 
 }
