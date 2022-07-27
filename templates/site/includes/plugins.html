@@ -51,7 +51,8 @@
             preview_content: {},
             default_translate_backend: 'skyeng',
             translate_backend: null,
-            reader_mode: false
+            reader_mode: false,
+            resume_page_buf: {}
         },
         created() {
             this.translate_backend = this.default_translate_backend
@@ -240,8 +241,12 @@
     }
 
     async function remove_reader_style() {
-        const styles = document.getElementById("reader_mode_style");
-        styles.remove();
+        try {
+            const styles = document.getElementById("reader_mode_style");
+            styles.remove();
+        } catch (e) {
+
+        }
 
         let saved_theme = getCookie('theme');
 
@@ -275,6 +280,10 @@
 
         await add_reader_style()
 
+        if ("{{context.page}}" === "resume") {
+            await prepare_resume_page_for_print()
+        }
+
     }
 
     async function disable_reader_mode() {
@@ -300,7 +309,36 @@
         line_right.removeAttribute("hidden");
 
         await remove_reader_style()
+
+        if ("{{context.page}}" === "resume") {
+            await return_resume_page_after_print()
+        }
     }
+
+    async function return_resume_page_after_print() {
+        let download_cv_button = document
+            .getElementById("download_cv_button");
+
+        download_cv_button.removeAttribute("hidden");
+
+        let resume_subtitle = document
+            .getElementById("resume_subtitle");
+
+        resume_subtitle.removeAttribute("hidden");
+
+    }
+
+    async function prepare_resume_page_for_print() {
+        let download_cv_button = document
+            .getElementById("download_cv_button");
+        download_cv_button.setAttribute("hidden", true);
+
+        let resume_subtitle = document
+            .getElementById("resume_subtitle");
+
+        resume_subtitle.setAttribute("hidden", true)
+    }
+
 
     async function swap_reader_mode() {
         if (app.reader_mode === false) {

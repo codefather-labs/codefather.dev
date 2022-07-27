@@ -3,19 +3,25 @@
 
 {% block content %}
 <div class="wrapper">
+    <style>
+        .resume-link {
+            border-bottom: 1px dashed;
+        }
+    </style>
 
 
     <!-- Started -->
-    <div class="section started">
+    <div class="section started" id="section_started">
         <div class="centrize full-width">
             <div class="vertical-center">
                 <div class="started-content">
                     <div class="h-title glitch-effect" data-text="Resume">Resume</div>
                     <div class="h-subtitle typing-bread">
-                        <p><a href="https://codefather.dev">Home</a> / <a href="https://codefather.dev/resume/">Resume</a>
+                        <p><a href="https://codefather.dev">Home</a> / <a
+                                href="https://codefather.dev/resume/">Resume</a>
                         </p>
                     </div>
-                    <span class="typed-bread"></span>
+                    <span class="typed-bread" id="resume_subtitle"></span>
                 </div>
             </div>
         </div>
@@ -24,7 +30,7 @@
 
 
     <!-- About -->
-    <div class="section about">
+    <div class="section about" id="section_about">
         <div class="content">
 
             <div class="title">
@@ -59,8 +65,9 @@
                         <li><strong>Residence:</strong> Odessa</li>
                     </ul>
                 </div>
-                <div class="bts"><a href="#" class="btn fill"
-                                    data-text="Download CV">Download CV</a></div>
+                <div class="bts" id="download_cv_button">
+                    <span class="btn" data-text="Download CV" onclick="print_page()">Download CV</span>
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -68,10 +75,10 @@
 
 
     <!-- Resume -->
-    <div class="section resume">
+    <div class="section resume" id="section_resume">
         <div class="content">
             <div class="cols">
-                <div class="col col-md">
+                <div class="col col-md" id="first_experience_div">
                     <div class="title">
                         <div class="title_inner">Experience</div>
                     </div>
@@ -79,7 +86,8 @@
                         <div class="resume-item active">
                             <div class="date">2021 - 2022</div>
                             <div class="name">Main Backend Dev -
-                                <a href="https://canvagramofficial.com">Canvagram</a>, Canada, Ottawa
+                                <a href="https://canvagramofficial.com" class="resume-link">Canvagram</a>, Canada,
+                                Ottawa
                             </div>
                             <p>
                                 Main Backend developer of Canvagram project
@@ -89,7 +97,8 @@
                         <div class="resume-item active">
                             <div class="date">2021 - 2022</div>
                             <div class="name">Main Python Dev -
-                                <a href="https://www.sportmasterdata.com">Sport Master Data SIA</a>, Latvia, Riga
+                                <a href="https://www.sportmasterdata.com" class="resume-link">Sport Master Data SIA</a>,
+                                Latvia, Riga
                             </div>
                             <p>
                                 Main developer of payment systems aggregator and software for payment terminals
@@ -99,7 +108,7 @@
                         <div class="resume-item active">
                             <div class="date">2019 - 2019</div>
                             <div class="name">Support Python Dev -
-                                <a href="https://carpedia.club">Carpedia</a>, Russia, Moscow
+                                <a href="https://carpedia.club" class="resume-link">Carpedia</a>, Russia, Moscow
                             </div>
                             <p>
                                 Support developer for small automotive startup for the Japanese market
@@ -109,7 +118,7 @@
                         <div class="resume-item active">
                             <div class="date">2018 - 2018</div>
                             <div class="name">Senior Python Dev -
-                                <a href="https://eblitz.gg">Eblitz Gaming</a>, England, London
+                                <a href="https://eblitz.gg" class="resume-link">Eblitz Gaming</a>, England, London
                             </div>
                             <p>
                                 Participation in the development of the server part for eBlitz gaming app
@@ -118,7 +127,8 @@
 
                     </div>
                 </div>
-                <div class="col col-md">
+
+                <div class="col col-md" id="second_experience_div">
                     <div class="title">
                         <div class="title_inner"></div>
                     </div>
@@ -130,14 +140,14 @@
                             </div>
                             <p>
                                 Main developer of API bridge between trading interface and blockchain
-                                <a href="https://bitshares.org">Bitshares</a> node (Freelance)
+                                <a href="https://bitshares.org" class="resume-link">Bitshares</a> node (Freelance)
                             </p>
                         </div>
 
                         <div class="resume-item active">
                             <div class="date">2016 - 2016</div>
                             <div class="name">Main Python Dev -
-                                <a href="https://drtrial.ru">Dr.Trial</a>, Saint Petersburg , Russia
+                                <a href="https://drtrial.ru" class="resume-link">Dr.Trial</a>, Saint Petersburg , Russia
                             </div>
                             <p>
                                 Main developer of CRM System for commercial/research medical organization (Freelance)
@@ -147,35 +157,36 @@
                         <div class="resume-item active">
                             <div class="date">2015 - 2015</div>
                             <div class="name">Middle Python Dev -
-                                <a href="https://facedigital.ru">Face Digital</a>, Moscow
+                                <a href="https://facedigital.ru" class="resume-link">Face Digital</a>, Moscow
                             </div>
                             <p>
                                 Participation in the development
-                                (<a href="https://amma.pet">Amma Pet</a>,
-                                <a href="https://vassatrend.ru">Vassatrend</a>)
+                                (<a href="https://amma.pet" class="resume-link">Amma Pet</a>,
+                                <a href="https://vassatrend.ru" class="resume-link">Vassatrend</a>)
                                 of online stores (Project work)
                             </p>
                         </div>
                         <div class="resume-item active">
                             <div class="date">2015 - 2015</div>
-                            <div class="name">Middle Python Dev - <a href="https://platform.nti.work">NTI Platform</a>,
+                            <div class="name">Middle Python Dev - <a href="https://platform.nti.work"
+                                                                     class="resume-link">NTI Platform</a>,
                                 Moscow
                             </div>
                             <p>
-                                Development of integration with subsidiary <a href="https://leader-id.ru">Leader ID</a>
+                                Development of integration with subsidiary <a href="https://leader-id.ru"
+                                                                              class="resume-link">Leader ID</a>
                                 (Project work)
                             </p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
 
     <!-- Skills -->
-    <div class="section skills">
+    <div class="section skills" id="section_coding_skills">
         <div class="content">
             <div class="title">
                 <div class="title_inner">Coding Skills</div>
@@ -239,7 +250,7 @@
     </div>
 
     <!-- Skills -->
-    <div class="section skills">
+    <div class="section skills" id="section_language_skills">
         <div class="content">
             <div class="title">
                 <div class="title_inner">Languages Skills</div>
@@ -269,7 +280,7 @@
     </div>
 
     <!-- Skills -->
-    <div class="section skills">
+    <div class="section skills" id="section_soft_skills">
         <div class="content">
             <div class="title">
                 <div class="title_inner">Soft Skills</div>
@@ -332,7 +343,7 @@
     </div>
 
     <!-- Skills -->
-    <div class="section skills">
+    <div class="section skills" id="section_knowledge_skills">
         <div class="content">
             <div class="title">
                 <div class="title_inner">Knowledge</div>
@@ -392,7 +403,7 @@
             </div>
         </div>
     </div>
-    <div class="section skills">
+    <div class="section skills" id="section_technology_skills">
         <div class="content">
             <div class="title">
                 <div class="title_inner">Technology</div>
