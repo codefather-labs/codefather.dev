@@ -3,6 +3,7 @@ from uuid import UUID
 
 from django.http import Http404
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 from rest_framework.request import Request
 
 from apps.core.models import Post, Tag
@@ -69,6 +70,7 @@ def tag(request: Request, reference: str):
     })
 
 
+@cache_page(60 * 30)
 def post(request: Request, reference: Union[str, str]):
     ref = {}
     try:
