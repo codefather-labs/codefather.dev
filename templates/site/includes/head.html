@@ -110,8 +110,72 @@
     </style>
 
     <script>
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
 
-        function set_theme(style_path) {
+    <script>
+        /* Preloader */
+        async function show_preloader() {
+            console.log("preloader")
+            // /* Preloader */
+            $(".preloader .pre-inner").fadeIn(0, function () {
+                /* Preload hide */
+                $('.preloader').fadeIn();
+                $('body').removeClass('loaded');
+
+                /* Typed subtitle */
+                $('.typed-subtitle').typed({
+                    stringsElement: $('.typing-subtitle'),
+                    loop: true
+                });
+
+                /* Typed breadcrumbs */
+                $('.typed-bread').typed({
+                    stringsElement: $('.typing-bread'),
+                    showCursor: false
+                });
+
+                /* One Page Nav */
+                var url_hash = location.hash;
+                var sectionElem = $(url_hash);
+                if (url_hash.indexOf('#section-') == 0 && sectionElem.length) {
+                    $('body, html').animate({scrollTop: $(url_hash).offset().top - 70}, 400);
+                }
+            });
+            await sleep(300)
+
+            $(".preloader .pre-inner").fadeOut(800, function () {
+                /* Preload hide */
+                $('.preloader').fadeOut();
+                $('body').addClass('loaded');
+
+                /* Typed subtitle */
+                $('.typed-subtitle').typed({
+                    stringsElement: $('.typing-subtitle'),
+                    loop: true
+                });
+
+                /* Typed breadcrumbs */
+                $('.typed-bread').typed({
+                    stringsElement: $('.typing-bread'),
+                    showCursor: false
+                });
+
+                /* One Page Nav */
+                var url_hash = location.hash;
+                var sectionElem = $(url_hash);
+                if (url_hash.indexOf('#section-') == 0 && sectionElem.length) {
+                    $('body, html').animate({scrollTop: $(url_hash).offset().top - 70}, 400);
+                }
+            });
+        }
+    </script>
+
+    <script>
+
+        async function set_theme(style_path) {
             let el = document.getElementById('theme');
 
             if (!el) {
@@ -121,6 +185,7 @@
                 // Create new link Element
                 el = document.createElement('link');
             }
+
             // set the attributes for link element
             el.id = 'theme';
             el.rel = 'stylesheet';
@@ -133,6 +198,7 @@
             } catch (e) {
 
             }
+            await show_preloader()
         }
 
     </script>
