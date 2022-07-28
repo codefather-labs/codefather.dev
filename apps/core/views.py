@@ -70,7 +70,6 @@ def tag(request: Request, reference: str):
     })
 
 
-@cache_page(60 * 5)
 def post(request: Request, reference: Union[str, str]):
     ref = {}
     try:
