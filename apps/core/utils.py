@@ -99,17 +99,7 @@ class PygmentsRenderer(HTMLRenderer):
         else:
             title = ''
 
-        # print(self.post_dir_path, token.src)
-        regex = r'(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))'
-        regex = re.compile(regex)
-        is_url: re.Match = regex.search(token.src)
-        if is_url:
-            token.src = "/" + "/".join(str(is_url.string).split("/")[1:])
-
-        image_filepath = f"{self.post_dir_path}{token.src}"
-        ext = image_filepath.split('.')[-1]
-        bts = base64.b64encode(open(image_filepath, 'rb').read()).decode()
-        src = f"data:image/{ext};base64,{bts}"
+        src = "/%s" % "/".join(token.src.split("/")[1:])
         return template.format(src, self.render_to_plain(token), title)
 
 
