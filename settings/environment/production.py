@@ -1,4 +1,5 @@
 import ast
+import os
 
 from settings.environment.base import *
 
@@ -13,6 +14,7 @@ SECURE_SSL_REDIRECT = bool(int(os.environ.get("SECURE_SSL_REDIRECT", "0")))
 HOST = str(os.environ.get("HOST"))
 ALLOWED_HOSTS = list(ast.literal_eval(os.environ.get("ALLOWED_HOSTS")))
 ADMIN_ROUTER_ENABLED = bool(int(os.environ.get("ADMIN_ROUTER_ENABLED", "0")))
+ADMIN_ROUTE = os.environ.get("ADMIN_ROUTE")
 WHITENOISE_PACKAGE_REQUIRE = bool(int(os.environ.get("WHITENOISE_PACKAGE_REQUIRE", "0")))
 
 # Middleware Settings

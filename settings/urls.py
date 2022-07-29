@@ -49,7 +49,7 @@ urlpatterns = [
 ]
 
 if settings.ADMIN_ROUTER_ENABLED:
-    urlpatterns.append(path('admin/', admin.site.urls))
+    urlpatterns.append(path(settings.ADMIN_ROUTE, admin.site.urls))
 
 urlpatterns += custom_static_serve(settings.MEDIA_URL,
                                    document_root=settings.MEDIA_ROOT)

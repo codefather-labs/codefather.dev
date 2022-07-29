@@ -9,7 +9,6 @@ DEBUG = True
 
 HOST = str(os.environ.get("HOST", "localhost:9000"))
 ALLOWED_HOSTS = ['*']
-ADMIN_ROUTER_ENABLED = True
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

@@ -20,6 +20,8 @@ from corsheaders.checks import check_settings as check_cors_settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SITE_ID = 1
+ADMIN_ROUTER_ENABLED = True
+ADMIN_ROUTE = 'admin/'
 
 # A dictionary of urlconf module paths, keyed by their subdomain.
 SUBDOMAIN_URLCONFS = {
