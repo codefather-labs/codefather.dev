@@ -14,10 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('settings.urls'))
 """
 import os
+import re
+from urllib.parse import urlsplit
 
 from django.contrib import admin
-from django.urls import path, include
+from django.core.exceptions import ImproperlyConfigured
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
+from django.views.static import serve
 
 from settings.environment.settings import get_settings_module
 from settings.utils import schema_view
@@ -53,7 +57,29 @@ urlpatterns = [
 if settings.ADMIN_ROUTER_ENABLED:
     urlpatterns.append(path('admin/', admin.site.urls))
 
-urlpatterns += static(settings.MEDIA_URL,
-                      document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL,
-                      document_root=settings.STATIC_ROOT)
+
+def custom_static_serve(prefix, view=serve, **kwargs):
+    """
+    Return a URL pattern for serving files in debug mode.
+
+    from django.conf import settings
+    from django.conf.urls.static import static
+
+    urlpatterns = [
+        # ... the rest of your URLconf goes here ...
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    """
+    if not prefix:
+        raise ImproperlyConfigured("Empty static prefix not permitted")
+
+    return [
+        re_path(
+            r"^%s(?P<path>.*)$" % re.escape(prefix.lstrip("/")), view, kwargs=kwargs
+        ),
+    ]
+
+
+urlpatterns += custom_static_serve(settings.MEDIA_URL,
+                                   document_root=settings.MEDIA_ROOT)
+urlpatterns += custom_static_serve(settings.STATIC_URL,
+                                   document_root=settings.STATIC_ROOT)
