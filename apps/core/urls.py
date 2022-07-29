@@ -9,10 +9,10 @@ core_patterns = [
     path('projects', core_views.projects, name='projects_url'),
     path('blog/', core_views.blog, name='blog_url'),
     path('blog/tag/<str:reference>', core_views.tag, name='tag_url'),
+    path('blog/category/<str:reference>', core_views.category, name='category_url'),
     path('blog/post/<str:reference>', core_views.post, name='post_url'),
     path('contacts', core_views.contacts, name='contacts_url'),
 ]
 
 urlpatterns = []
 urlpatterns += core_patterns
-

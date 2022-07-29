@@ -1,9 +1,15 @@
+from django.contrib.sitemaps import ping_google
 from django.db import models
+from django.urls import reverse
 from mdeditor.fields import MDTextField
 from djrichtextfield.models import RichTextField
 
 from apps.core import mixins
 from apps.core.utils import markdown_to_html
+from apps.meta.models import PageHeadMetaTagMixin, PageHeadMixin
+from settings.environment.settings import get_settings_module, environment
+
+settings = get_settings_module()
 
 
 class BaseModel(mixins.AutoincrementIDMixin,
@@ -23,9 +29,22 @@ class Tag(BaseModel):
         default=None,
         null=True
     )
+    slug = models.SlugField(
+        max_length=255,
+        db_index=True,
+        default=None,
+        null=True,
+        blank=True,
+        allow_unicode=True
+    )
 
     def __str__(self):
         return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse("core-urls:tag_url", kwargs={
+            "reference": self.slug
+        })
 
 
 class Category(BaseModel):
@@ -37,12 +56,39 @@ class Category(BaseModel):
         default=None,
         null=True
     )
+    slug = models.SlugField(
+        max_length=255,
+        db_index=True,
+        default=None,
+        null=True,
+        blank=True,
+        allow_unicode=True
+    )
 
     def __str__(self):
         return str(self.name)
 
+    def get_absolute_url(self):
+        return reverse("core-urls:category_url", kwargs={
+            "reference": self.slug
+        })
 
-class Post(BaseModel):
+
+class PostMetaTag(PageHeadMetaTagMixin):
+    class Meta:
+        abstract = False
+
+    meta_model = models.ForeignKey(
+        "core.Post",
+        related_name='meta_tags',
+        on_delete=models.deletion.CASCADE,
+        default=None,
+        null=False,
+        blank=False
+    )
+
+
+class Post(BaseModel, PageHeadMixin):
     class Meta:
         abstract = False
 
@@ -122,6 +168,40 @@ class Post(BaseModel):
         blank=True
     )
 
+    is_published = models.BooleanField(
+        default=False,
+        null=True,
+        blank=True
+    )
+
+    is_isolated = models.BooleanField(
+        default=False,
+        null=True,
+        blank=True
+    )
+
+    @property
+    def render_meta_title(self):
+        if not self.meta_title:
+            return f"<title>{self.title} by {self.author} at codefather.dev</title>" \
+                if self.author else f"<title>{self.title} at codefather.dev</title>"
+        return f"<title>{self.meta_title}</title>"
+
+    @property
+    def render_meta_description(self):
+        if self.meta_description:
+            return f'<meta name="description" content="{self.meta_description}">'
+        return ""
+
+    @property
+    def url_pattern(self):
+        return "core-urls:post_url"
+
+    def get_absolute_url(self):
+        return reverse(self.url_pattern, kwargs={
+            "reference": self.slug
+        })
+
     def save(self, *args, **kwargs):
         if not self.language:
             self.language = self.DEFAULT_LANGUAGE
@@ -129,10 +209,20 @@ class Post(BaseModel):
         if not self.is_already_formatted:
             self.body = markdown_to_html(str(self.markdown))
             self.is_already_formatted = True
+
+        if environment.value == 'Production':
+            # TODO add pinging log
+            try:
+                ping_google()
+            except Exception:
+                # Bare 'except' because we could get a variety
+                # of HTTP-related exceptions.
+                pass
+
         return super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.title}, {self.author}"
+        return f"{self.title}"
 
     @property
     def glitch_title(self):

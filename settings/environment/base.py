@@ -38,6 +38,7 @@ PRE_ADMIN_APPS = []
 ROOT_APPS = [
     'apps.core',
     'apps.editor',
+    'apps.meta',
     # 'apps.market',
 ]
 INSTALLED_APPS = [
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
     'mdeditor',
     'ckeditor',
     'djrichtextfield',
-    'subdomains'
+    'subdomains',
 ]
 
 INSTALLED_APPS = [
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     *INSTALLED_APPS,
     *ROOT_APPS
 ]
@@ -68,10 +70,10 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'subdomains.middleware.SubdomainURLRoutingMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
+    # 'django.middleware.gzip.GZipMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -245,3 +247,14 @@ CORS_ALLOW_HEADERS = [
 ]
 
 DEFAULT_FRONTEND_THEME = os.environ.get('DEFAULT_FRONTEND_THEME', 'black')
+
+# SEO Settings
+# ------------------------------------------------------------------------------
+SEO_URLS_AUTODISCOVER = True
+SEO_AUTODISCOVER_LIST_MODELS = [
+    "apps.core.Post"
+]
+SEO_AUTODISCOVER_MODELS_CONFIG = {
+    "queryset_params": {}
+}
+SEO_SITEMAPS_ARTICLE_PAGINATE_BY = 50

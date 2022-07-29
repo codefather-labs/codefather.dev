@@ -7,4 +7,6 @@
 
 # TODO
 Table of contents like:
+- https://search.google.com/search-console/welcome
 - https://hackmd.io/@klouielu/ByMHBMjFe?type=view
+- https://developers.google.com/search/docs

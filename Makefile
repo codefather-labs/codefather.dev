@@ -8,9 +8,9 @@ truncate_db:
 	python3 manage.py sqlflush | python3 manage.py dbshell
 
 reinstall_db_with_new_migrations:
-	make truncate_db
-	make delete_migrations
 	rm -rf db.sqlite3
+	make delete_migrations
+	make truncate_db
 	python3 manage.py makemigrations
 	python3 manage.py migrate
 	make local_load_common_fixtures

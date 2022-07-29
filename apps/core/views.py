@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 from rest_framework.request import Request
 
-from apps.core.models import Post, Tag
+from apps.core.models import Post, Tag, Category
 from apps.core.utils import create_context
 
 
@@ -66,7 +66,7 @@ def tag(request: Request, reference: str):
     try:
         tag = Tag.objects.get(**ref)
     except Post.DoesNotExist:
-        return Http404("Post was not found")
+        return Http404("Tag was not found")
 
     return render(request, 'site/tag.html', {
         "tag": {
@@ -76,6 +76,26 @@ def tag(request: Request, reference: str):
 
 
 @cache_page(60 * 15)
+def category(request: Request, reference: str):
+    ref = {}
+    try:
+        ref.update({"uuid": UUID(reference)})
+    except (AttributeError, ValueError):
+        ref.update({"name": reference})
+
+    try:
+        category = Category.objects.get(**ref)
+    except Category.DoesNotExist:
+        return Http404("Category was not found")
+
+    return render(request, 'site/tag.html', {
+        "tag": {
+            "title": category.title,
+        }, **create_context('blog')
+    })
+
+
+# @cache_page(60 * 15)
 def post(request: Request, reference: Union[str, str]):
     ref = {}
     try:

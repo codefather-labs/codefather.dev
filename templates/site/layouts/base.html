@@ -1,7 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-{% include 'site/includes/head.html' %}
+<head id="head">
+    <!-- Meta -->
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    {% block meta %}
+    {% endblock meta %}
+
+    {% block styles %}
+    {% include 'site/includes/styles.html' %}
+    {% endblock styles %}
+
+    {% block head_scripts %}
+    {% include 'site/includes/head_scripts.html' %}
+    {% endblock head_scripts %}
+</head>
 
 <body class="home" id="app">
 

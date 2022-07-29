@@ -1,5 +1,10 @@
 {% extends 'site/layouts/base.html' %}
 
+{% block meta %}
+{{ post.render_all_metadata|safe }}
+<link rel="canonical" href="https://codefather.dev"/>
+{% endblock meta %}
+
 {% block content %}
 <!-- Wrapper -->
 <div class="wrapper">

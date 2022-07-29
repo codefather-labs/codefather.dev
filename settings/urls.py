@@ -15,14 +15,28 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
 
+from apps.core import sitemaps
 from settings.environment.settings import get_settings_module
 from settings.utils import schema_view, custom_static_serve
 
 settings = get_settings_module()
 
+sitemaps = {
+    "static": sitemaps.StaticSitemap,
+    "posts": sitemaps.PostSitemap,
+    "categories": sitemaps.CategorySitemap,
+    "tags": sitemaps.TagSitemap
+}
+
 urlpatterns = [
+    # sitemap.xml
+    path('sitemap.xml', cache_page(86400)(sitemap), {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+
     # API URLS
     path('api/v1/', include(('apps.core.api.urls', 'core'), namespace='api-urls')),
 
