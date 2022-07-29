@@ -1,3 +1,7 @@
+import re
+
+from django.urls import re_path
+from django.views.static import serve
 from drf_yasg import openapi
 from drf_yasg.generators import OpenAPISchemaGenerator
 from drf_yasg.views import get_schema_view
@@ -22,3 +26,11 @@ schema_view = get_schema_view(
     generator_class=BothHttpAndHttpsSchemaGenerator,
     permission_classes=(permissions.AllowAny,)
 )
+
+
+def custom_static_serve(prefix, view=serve, **kwargs):
+    return [
+        re_path(
+            r"^%s(?P<path>.*)$" % re.escape(prefix.lstrip("/")), view, kwargs=kwargs
+        ),
+    ]
