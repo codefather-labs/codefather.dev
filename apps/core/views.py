@@ -8,9 +8,9 @@ from rest_framework.request import Request
 
 from apps.core.models import Post, Tag
 from apps.core.utils import create_context
-from settings.logger import system_message
 
 
+@cache_page(60 * 15)
 def main(request: Request):
     return render(
         request,
@@ -19,6 +19,7 @@ def main(request: Request):
     )
 
 
+@cache_page(60 * 15)
 def resume(request: Request):
     return render(
         request,
@@ -27,6 +28,7 @@ def resume(request: Request):
     )
 
 
+@cache_page(60 * 15)
 def projects(request: Request):
     return render(
         request,
@@ -35,6 +37,7 @@ def projects(request: Request):
     )
 
 
+@cache_page(60 * 15)
 def blog(request: Request):
     return render(
         request,
@@ -43,6 +46,7 @@ def blog(request: Request):
     )
 
 
+@cache_page(60 * 15)
 def contacts(request: Request):
     return render(
         request,
@@ -51,6 +55,7 @@ def contacts(request: Request):
     )
 
 
+@cache_page(60 * 15)
 def tag(request: Request, reference: str):
     ref = {}
     try:
