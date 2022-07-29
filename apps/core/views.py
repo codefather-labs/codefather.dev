@@ -95,7 +95,7 @@ def category(request: Request, reference: str):
     })
 
 
-# @cache_page(60 * 15)
+@cache_page(60 * 15)
 def post(request: Request, reference: Union[str, str]):
     ref = {}
     try:

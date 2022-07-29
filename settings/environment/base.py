@@ -251,10 +251,12 @@ DEFAULT_FRONTEND_THEME = os.environ.get('DEFAULT_FRONTEND_THEME', 'black')
 # SEO Settings
 # ------------------------------------------------------------------------------
 SEO_URLS_AUTODISCOVER = True
-SEO_AUTODISCOVER_LIST_MODELS = [
-    "apps.core.Post"
-]
-SEO_AUTODISCOVER_MODELS_CONFIG = {
-    "queryset_params": {}
+SEO_AUTODISCOVER_CONFIG = {
+    "models": [
+        {
+            "path": "apps.core.Post",
+            "queryset_params": {}
+        }
+    ]
 }
 SEO_SITEMAPS_ARTICLE_PAGINATE_BY = 50
