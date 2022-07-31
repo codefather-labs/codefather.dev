@@ -1,6 +1,5 @@
 from settings.environment.base import *
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-foez$+0ren1#btn$8ay!mzoybqti$^n72-a!z4@4u%#ij6n88c'
 
@@ -19,20 +18,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'subdomains.middleware.SubdomainURLRoutingMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
 
 # CORS Settings
 # ------------------------------------------------------------------------------
