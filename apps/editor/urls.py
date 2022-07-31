@@ -12,7 +12,7 @@ urlpatterns = [
 ]
 
 # ADMIN EDITOR
-if settings.EDITOR_ROUTE_ENABLED:
+if settings.ADMIN_ROUTER_ENABLED:
     urlpatterns.append(
         path('post/markdown/<str:post_uuid>', views.post_markdown, name='post-markdown-url')
     )
