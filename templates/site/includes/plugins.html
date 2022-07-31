@@ -49,7 +49,7 @@
         delimiter: ["[[", "]]"],
         data: {
             selected: false,
-            selected_id: null,
+            selected_el: null,
             preview_content: {},
             default_translate_backend: 'skyeng',
             translate_backend: null,
@@ -106,6 +106,29 @@
 
         },
         methods: {
+            update_selected_paragraph: async function (el) {
+                if (this.selected_el === el) {
+                    el.style.borderLeft = null;
+                    el.style.paddingLeft = null;
+                    this.selected_el = null;
+
+                } else {
+                    el.style.borderLeft = "solid #15efc7 2px";
+                    el.style.paddingLeft = "5px";
+
+                    this.selected_el = el;
+                }
+
+            },
+            select_paragraph_for_blockquote: async function (el) {
+                await this.update_selected_paragraph(el)
+
+                if (this.selected_el === el) {
+                    let textarea_wrapper = document.getElementsByClassName("placeholder");
+                    console.log(textarea_wrapper)
+                }
+
+            },
             parse_response: async function (response) {
                 if (!response[0]) {
                     return
@@ -362,66 +385,37 @@
 {% if context.page == "blog" %}
 <script>
 
-    async function wait_for_translate_window() {
+    // async function selectText(node) {
+    //     if (document.body.createTextRange) {
+    //         const range = document.body.createTextRange();
+    //         range.moveToElementText(node);
+    //         range.select();
+    //     } else if (window.getSelection) {
+    //         const selection = window.getSelection();
+    //         const range = document.createRange();
+    //         range.selectNodeContents(node);
+    //         selection.removeAllRanges();
+    //         selection.addRange(range);
+    //     } else {
+    //         console.warn("Could not select text in node: Unsupported browser.");
+    //     }
+    //     await sleep(0.1);
+    //     const selection = window.getSelection();
+    //     selection.removeAllRanges();
+    // }
 
-        app.selected = true;
-        while (app.selected) {
-            await sleep(500)
-
-            let wd = document.getElementsByClassName(
-                "wt-sky-long-dialog"
-            );
-            if (wd[0]) {
-                let translated_text = wd[0].innerText;
-                let selected_div = document.getElementById(app.selected_id);
-
-                // selected_div.innerText = translated_text;
-
-                // wd[0].remove();
-                app.selected = false;
-
-            }
-        }
-    }
-
-    async function selectText(node) {
-        if (document.body.createTextRange) {
-            const range = document.body.createTextRange();
-            range.moveToElementText(node);
-            range.select();
-        } else if (window.getSelection) {
-            const selection = window.getSelection();
-            const range = document.createRange();
-            range.selectNodeContents(node);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        } else {
-            console.warn("Could not select text in node: Unsupported browser.");
-        }
-        await sleep(0.1);
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-    }
-
-
-    p.addEventListener('click', (e) => {
-        if (reader_mode) {
-            // TODO remove div.innerHtml autoselecting
-            // let source_el = e.path[0];
-            // let blog = document.getElementById("content");
-            //
-            // if (blog.contains(source_el)) {
-            //     if (!source_el.hasAttribute("id")) {
-            //         source_el.setAttribute("id", create_UUID())
-            //     }
-            //
-            //     selectText(source_el);
-            //
-            //     app.selected_id = source_el.getAttribute("id");
-            //     wait_for_translate_window()
-            // }
-        }
-    })
+    // p.addEventListener('click', (e) => {
+    //     let source_el = e.path[0];
+    //     let blog = document.getElementById("content");
+    //
+    //     if (blog.contains(source_el)) {
+    //         if (!source_el.hasAttribute("id")) {
+    //             source_el.setAttribute("id", create_UUID())
+    //         }
+    //
+    //         app.select_paragraph_for_blockquote(source_el);
+    //     }
+    // })
 </script>
 <!--<script src="{% static 'site/vimbox.js' %}"></script>-->
 {% endif %}
