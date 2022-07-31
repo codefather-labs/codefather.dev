@@ -3,6 +3,7 @@ from uuid import UUID
 
 from django.http import Http404
 from django.shortcuts import render
+from django.http.response import HttpResponseNotFound
 from django.views.decorators.cache import cache_page
 from rest_framework.request import Request
 
@@ -107,6 +108,9 @@ def post(request: Request, reference: Union[str, str]):
         post = Post.objects.get(**ref)
     except Post.DoesNotExist:
         return Http404("Post was not found")
+
+    if not post.is_published:
+        return HttpResponseNotFound()
 
     return render(request, 'site/post.html', {
         "post": post, **create_context('blog')
