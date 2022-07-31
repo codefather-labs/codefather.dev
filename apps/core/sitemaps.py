@@ -29,7 +29,7 @@ class StaticSitemap(Sitemap):
 
 
 class CategorySitemap(Sitemap):
-    changefreq = "dayly"
+    changefreq = "weekly"
     priority = 0.5
     protocol = DEFAULT_PROTOCOL_STRATEGY
 
@@ -44,7 +44,7 @@ class CategorySitemap(Sitemap):
 
 
 class TagSitemap(Sitemap):
-    changefreq = "dayly"
+    changefreq = "weekly"
     priority = 0.5
     protocol = DEFAULT_PROTOCOL_STRATEGY
 
@@ -59,7 +59,7 @@ class TagSitemap(Sitemap):
 
 
 class PostSitemap(Sitemap):
-    changefreq = "dayly"
+    changefreq = "weekly"
     priority = 0.5
     protocol = DEFAULT_PROTOCOL_STRATEGY
 
