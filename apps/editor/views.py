@@ -4,13 +4,37 @@ from typing import Optional
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db.models import QuerySet
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseNotFound
 from django.shortcuts import render, redirect
 
 from apps.core.models import Post
 from apps.editor.models import EditedPostView
-from apps.editor.forms import EditedPostViewForm
+from apps.editor.forms import EditedPostViewForm, MarkdownPostForm
 from apps.editor.utils import formatted_markdown
+
+
+@login_required(login_url='admin:login')
+def post_markdown(request: HttpRequest, post_uuid: str):
+    try:
+        post: Optional[Post] = Post.objects.get(uuid=post_uuid)
+    except (ValidationError, Post.DoesNotExist):
+        return HttpResponseNotFound()
+
+    if request.method == "POST":
+        form = EditedPostViewForm(request.POST)
+        markdown = form.data.get('markdown')
+        post.markdown = markdown
+        post.save()
+
+    return render(request, 'admin/markdown_editor.html', {
+        "error": False,
+        "status": "Success",
+        "details": {
+            "form": MarkdownPostForm(instance=post),
+            "model": post,
+            "markdown": formatted_markdown(post.markdown)
+        }
+    }, status=200)
 
 
 @login_required(login_url='admin:login')

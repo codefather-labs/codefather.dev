@@ -5,6 +5,7 @@ import re
 from enum import Enum
 from typing import List, Union
 
+from django.db.models import QuerySet
 from django.utils.text import slugify
 from mistletoe import HTMLRenderer, Document
 from drf_yasg import openapi
@@ -149,12 +150,18 @@ def generate_api_response(
 
 def create_context(page_name: str, data=None):
     from apps.core.models import Post
+
+    excluded_categories = ["Solution"]
+
+    posts: QuerySet[Post] = Post.objects.filter(
+        is_published=True,
+    ).exclude(category__name__in=excluded_categories).order_by('-created_at')[:10]
+
     result = {
         "context": {
             "page": page_name,
-
         },
-        "latest_posts": Post.objects.order_by('-created_at')[:10],
+        "latest_posts": posts,
         "theme": DEFAULT_FRONTEND_THEME
     }
     if data:

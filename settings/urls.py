@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.urls import path, include
+from django.urls import path, include, URLPattern
 from django.views.decorators.cache import cache_page
 
 from apps.core import sitemaps

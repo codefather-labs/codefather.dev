@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SITE_ID = 1
 ADMIN_ROUTER_ENABLED = True
 ADMIN_ROUTE = 'admin/'
+EDITOR_ROUTE_ENABLED = True
 
 # A dictionary of urlconf module paths, keyed by their subdomain.
 SUBDOMAIN_URLCONFS = {
@@ -168,7 +169,7 @@ REST_FRAMEWORK = {
 MDEDITOR_CONFIGS = {
     'default': {
         'width': '100% ',  # Custom edit box width
-        'height': 500,  # Custom edit box height
+        'height': 600,  # Custom edit box height
         'toolbar': ["undo", "redo", "|",
                     "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
                     "h1", "h2", "h3", "h5", "h6", "|",

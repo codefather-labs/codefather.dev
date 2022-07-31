@@ -72,6 +72,14 @@ class CustomMDTextFormField(forms.fields.CharField):
         super(CustomMDTextFormField, self).__init__(*args, **kwargs)
 
 
+class MarkdownPostForm(forms.ModelForm):
+    markdown = MDTextFormField(widget=MDEditorWidget)
+
+    class Meta:
+        model = EditedPostView
+        fields = ('markdown',)
+
+
 class EditedPostViewForm(forms.ModelForm):
     # uuid = forms.CharField()
     markdown = CustomMDTextFormField()

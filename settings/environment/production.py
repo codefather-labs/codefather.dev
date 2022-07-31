@@ -1,6 +1,8 @@
 import ast
 import os
 
+from django.utils.http import urlencode
+
 from settings.environment.base import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -15,6 +17,7 @@ HOST = str(os.environ.get("HOST"))
 ALLOWED_HOSTS = list(ast.literal_eval(os.environ.get("ALLOWED_HOSTS")))
 ADMIN_ROUTER_ENABLED = bool(int(os.environ.get("ADMIN_ROUTER_ENABLED", "0")))
 ADMIN_ROUTE = os.environ.get("ADMIN_ROUTE")
+EDITOR_ROUTE_ENABLED = bool(int(os.environ.get("EDITOR_ROUTER_ENABLED", "0")))
 WHITENOISE_PACKAGE_REQUIRE = bool(int(os.environ.get("WHITENOISE_PACKAGE_REQUIRE", "0")))
 
 # Middleware Settings

@@ -13,7 +13,7 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = ('uuid', 'get_absolute_url')
     prepopulated_fields = {"slug": ("title",)}
     list_display = ('title', 'author', 'uuid')
-
+    change_form_template = "admin/post_change_form.html"
 
     inlines = (PostMetaTagInline,)
 

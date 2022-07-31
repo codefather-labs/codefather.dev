@@ -11,7 +11,6 @@
 <script>
     /* Preloader */
     async function show_preloader() {
-        console.log("preloader")
         // /* Preloader */
         $(".preloader .pre-inner").fadeIn(0, function () {
             /* Preload hide */
@@ -111,9 +110,13 @@
         setCookie('theme', 'black')
         set_theme("{% static 'site/assets/css/template-dark/dark.css' %}")
 
-        let theme_button = document.getElementById("theme_button");
-        theme_button.innerText = "Bright side"
-        theme_button.setAttribute("data-text", "Bright side")
+        try {
+            let theme_button = document.getElementById("theme_button");
+            theme_button.innerText = "Bright side"
+            theme_button.setAttribute("data-text", "Bright side")
+        } catch (e) {
+
+        }
         return 'black'
     }
 
